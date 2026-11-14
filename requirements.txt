@@ -1,0 +1,8 @@
+pgmpy
+networkx
+pandas
+numpy
+matplotlib
+pydot
+pytest
+jsonschema
