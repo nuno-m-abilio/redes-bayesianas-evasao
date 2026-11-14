@@ -1,0 +1,105 @@
+{
+  "cenarios": [
+    {
+      "id": "S1_preditivo_ingresso",
+      "tipo_analise": "preditiva",
+      "pergunta": "Como o perfil de ingresso, sem nenhuma informação de desempenho, altera a distribuição do desfecho?",
+      "evidencias_base": {},
+      "variantes": [
+        {"id": "perfil_risco", "descricao": "Noturno, maduro, sem bolsa, nota de admissão baixa",
+         "evidencias_adicionais": {"Turno": "Noturno", "Faixa_Etaria": "Maduro", "Bolsista": "Nao", "Nota_Admissao": "Baixa"}},
+        {"id": "perfil_protegido", "descricao": "Diurno, jovem, bolsista, nota de admissão alta",
+         "evidencias_adicionais": {"Turno": "Diurno", "Faixa_Etaria": "Jovem", "Bolsista": "Sim", "Nota_Admissao": "Alta"}}
+      ],
+      "consultas": ["Desfecho"],
+      "expectativas": [
+        {"tipo": "comparacao", "consulta": "Desfecho", "estado": "Dropout",
+         "maior": "perfil_risco", "menor": "perfil_protegido",
+         "fundamentacao": "Estrutura: o perfil de risco piora o desempenho esperado e aumenta a pressão financeira, ambos pais do desfecho."},
+        {"tipo": "comparacao", "consulta": "Desfecho", "estado": "Graduate",
+         "maior": "perfil_protegido", "menor": "perfil_risco",
+         "fundamentacao": "Efeito oposto ao anterior sobre a conclusão do curso."}
+      ],
+      "relevancia": "Estima o risco no momento da matrícula, quando só o perfil de ingresso é conhecido.",
+      "limitacoes": "Associação probabilística entre perfis agregados; não implica causalidade nem se aplica a indivíduos."
+    },
+    {
+      "id": "S2_alerta_precoce",
+      "tipo_analise": "preditiva",
+      "pergunta": "Quanto o desempenho no 1º semestre altera o risco de evasão de um mesmo perfil de ingresso?",
+      "evidencias_base": {"Faixa_Etaria": "Maduro", "Turno": "Noturno", "Bolsista": "Nao"},
+      "variantes": [
+        {"id": "sem1_baixo", "descricao": "Desempenho baixo no 1º semestre",
+         "evidencias_adicionais": {"Desempenho_Sem1": "Baixo"}},
+        {"id": "sem1_alto", "descricao": "Desempenho alto no 1º semestre",
+         "evidencias_adicionais": {"Desempenho_Sem1": "Alto"}}
+      ],
+      "consultas": ["Desfecho", "Desempenho_Sem2"],
+      "expectativas": [
+        {"tipo": "comparacao", "consulta": "Desfecho", "estado": "Dropout",
+         "maior": "sem1_baixo", "menor": "sem1_alto",
+         "fundamentacao": "Estrutura: Sem1 influencia Sem2, que influencia o Desfecho; a informação se propaga pelo caminho Sem1 -> Sem2 -> Desfecho."},
+        {"tipo": "comparacao", "consulta": "Desempenho_Sem2", "estado": "Baixo",
+         "maior": "sem1_baixo", "menor": "sem1_alto",
+         "fundamentacao": "Arco direto Sem1 -> Sem2."}
+      ],
+      "relevancia": "Apoia um sistema de alerta precoce ao final do primeiro semestre.",
+      "limitacoes": "O 1º semestre é evidência de risco, não causa isolada de evasão."
+    },
+    {
+      "id": "S3_diagnostico",
+      "tipo_analise": "diagnostica",
+      "pergunta": "Sabendo que o estudante evadiu, quais condições ficam mais prováveis?",
+      "evidencias_base": {},
+      "variantes": [
+        {"id": "prior", "descricao": "Sem evidência (distribuição a priori)", "evidencias_adicionais": {}},
+        {"id": "dropout", "descricao": "Desfecho = Dropout", "evidencias_adicionais": {"Desfecho": "Dropout"}}
+      ],
+      "consultas": ["Pressao_Financeira", "Desempenho_Sem2", "Devedor", "Mensalidade_Em_Dia"],
+      "expectativas": [
+        {"tipo": "comparacao", "consulta": "Pressao_Financeira", "estado": "Alta",
+         "maior": "dropout", "menor": "prior",
+         "fundamentacao": "Pressao_Financeira é pai direto do Desfecho; observar Dropout eleva sua probabilidade."},
+        {"tipo": "comparacao", "consulta": "Desempenho_Sem2", "estado": "Baixo",
+         "maior": "dropout", "menor": "prior",
+         "fundamentacao": "Desempenho_Sem2 é pai direto do Desfecho."},
+        {"tipo": "comparacao", "consulta": "Devedor", "estado": "Sim",
+         "maior": "dropout", "menor": "prior",
+         "fundamentacao": "Efeito INDIRETO: Dropout eleva Pressao_Financeira Alta, que eleva Devedor Sim."},
+        {"tipo": "comparacao", "consulta": "Mensalidade_Em_Dia", "estado": "Nao",
+         "maior": "dropout", "menor": "prior",
+         "fundamentacao": "Efeito indireto via Pressao_Financeira, como em Devedor."}
+      ],
+      "relevancia": "Identifica sinais associados à evasão, úteis para priorizar acompanhamento.",
+      "limitacoes": "Raciocínio diagnóstico (efeito para causa) não prova que as condições causaram a evasão."
+    },
+    {
+      "id": "S4_prescritivo",
+      "tipo_analise": "prescritiva",
+      "pergunta": "Para um perfil de risco, vale a pena conceder bolsa, considerando probabilidades, utilidades e custo?",
+      "evidencias_base": {"Faixa_Etaria": "Maduro", "Turno": "Noturno", "Nota_Admissao": "Baixa",
+                          "Escolaridade_Pais": "Baixa", "Deslocado": "Sim", "Desemprego": "Alto"},
+      "variantes": [
+        {"id": "bolsa_sim", "descricao": "Com bolsa", "evidencias_adicionais": {"Bolsista": "Sim"}},
+        {"id": "bolsa_nao", "descricao": "Sem bolsa", "evidencias_adicionais": {"Bolsista": "Nao"}}
+      ],
+      "consultas": ["Desfecho"],
+      "expectativas": [
+        {"tipo": "comparacao", "consulta": "Desfecho", "estado": "Dropout",
+         "maior": "bolsa_nao", "menor": "bolsa_sim",
+         "fundamentacao": "Estrutura: Bolsista reduz Pressao_Financeira, que é pai do Desfecho e de Desempenho_Sem2."}
+      ],
+      "decisao": {
+        "consulta": "Desfecho",
+        "utilidades": {"Graduate": 100, "Enrolled": 20, "Dropout": -100},
+        "alternativas": {
+          "bolsa_sim": {"variante": "bolsa_sim", "custo": 15},
+          "bolsa_nao": {"variante": "bolsa_nao", "custo": 0}
+        },
+        "nota": "Utilidades e custo são hipóteses ilustrativas do grupo. A comparação é de evidências, não de efeito causal garantido."
+      },
+      "relevancia": "Compara alternativas de apoio financeiro com critério explícito (utilidade esperada).",
+      "limitacoes": "O arco Bolsista -> Pressao_Financeira é hipótese; o dataset é observacional e não comprova o efeito de uma intervenção."
+    }
+  ]
+}
