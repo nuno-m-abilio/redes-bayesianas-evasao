@@ -1,0 +1,3 @@
+Turno,Dropout_prop,Enrolled_prop,Graduate_prop,Dropout_n,Enrolled_n,Graduate_n
+Diurno,0.308,0.182,0.51,1214,719,2008
+Noturno,0.429,0.155,0.416,207,75,201

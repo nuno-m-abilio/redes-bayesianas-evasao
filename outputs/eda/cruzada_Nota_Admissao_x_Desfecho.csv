@@ -1,0 +1,4 @@
+Nota_Admissao,Dropout_prop,Enrolled_prop,Graduate_prop,Dropout_n,Enrolled_n,Graduate_n
+Baixa,0.428,0.198,0.374,345,160,302
+Media,0.303,0.181,0.516,763,457,1300
+Alta,0.285,0.161,0.553,313,177,607

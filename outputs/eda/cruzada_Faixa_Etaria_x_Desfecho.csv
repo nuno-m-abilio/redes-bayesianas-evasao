@@ -1,0 +1,4 @@
+Faixa_Etaria,Dropout_prop,Enrolled_prop,Graduate_prop,Dropout_n,Enrolled_n,Graduate_n
+Jovem,0.212,0.185,0.603,542,471,1538
+Adulto,0.356,0.22,0.424,295,182,351
+Maduro,0.559,0.135,0.306,584,141,320

@@ -1,0 +1,3 @@
+Desemprego,Dropout_prop,Enrolled_prop,Graduate_prop,Dropout_n,Enrolled_n,Graduate_n
+Baixo,0.33,0.198,0.472,660,395,942
+Alto,0.314,0.164,0.522,761,399,1267

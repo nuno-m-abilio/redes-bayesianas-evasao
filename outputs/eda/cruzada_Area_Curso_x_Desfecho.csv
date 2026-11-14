@@ -1,0 +1,6 @@
+Area_Curso,Dropout_prop,Enrolled_prop,Graduate_prop,Dropout_n,Enrolled_n,Graduate_n
+Saude,0.203,0.161,0.636,241,192,756
+Social_Educacao,0.29,0.148,0.562,221,113,428
+Gestao_Turismo,0.395,0.215,0.39,461,251,456
+Comunicacao_Design,0.303,0.146,0.551,234,113,425
+Tecnologia_Agro,0.495,0.235,0.27,264,125,144

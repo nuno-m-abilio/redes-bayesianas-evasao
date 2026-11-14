@@ -1,0 +1,88 @@
+{
+  "projeto": {
+    "tema": "Risco de evasão e sucesso acadêmico no ensino superior",
+    "pergunta_principal": "Dado o perfil de ingresso e o desempenho inicial, qual a probabilidade de Dropout, Enrolled ou Graduate?",
+    "dataset": {
+      "nome": "Predict Students' Dropout and Academic Success",
+      "fonte": "UCI Machine Learning Repository (id 697)",
+      "url": "https://archive.ics.uci.edu/dataset/697",
+      "uso": "Contextualização e justificativa. Nenhum parâmetro foi estimado automaticamente."
+    },
+    "nota_causalidade": "Arcos representam hipóteses de dependência; o dataset não comprova causalidade."
+  },
+
+  "variaveis": [
+    {
+      "id": "Desempenho_Sem1",
+      "nome": "Desempenho no 1º semestre",
+      "descricao": "Taxa de aprovação (aprovadas/inscritas) no 1º semestre",
+      "observavel": true,
+      "estados": [
+        {"id": "Baixo", "interpretacao": "taxa < 0,50"},
+        {"id": "Medio", "interpretacao": "0,50 <= taxa < 0,85"},
+        {"id": "Alto",  "interpretacao": "taxa >= 0,85"}
+      ]
+    }
+  ],
+
+  "estrutura": {
+    "arcos": [
+      {"de": "Nota_Admissao", "para": "Desempenho_Sem1",
+       "justificativa": "Preparo prévio influencia o rendimento inicial."}
+    ],
+    "pais": {
+      "Desempenho_Sem1": ["Nota_Admissao", "Faixa_Etaria", "Area_Curso"],
+      "Nota_Admissao": []
+    }
+  },
+
+  "probabilidades": [
+    {
+      "variavel": "Desempenho_Sem1",
+      "pais": ["Nota_Admissao", "Faixa_Etaria", "Area_Curso"],
+      "estados": ["Baixo", "Medio", "Alto"],
+      "linhas": [
+        {
+          "configuracao_pais": {"Nota_Admissao": "Alta", "Faixa_Etaria": "Jovem", "Area_Curso": "Saude"},
+          "probabilidades": {"Baixo": 0.10, "Medio": 0.30, "Alto": 0.60}
+        }
+      ],
+      "regra_geracao": "docs/justificativas.md#desempenho-sem1"
+    },
+    {
+      "variavel": "Nota_Admissao",
+      "pais": [],
+      "estados": ["Baixa", "Media", "Alta"],
+      "linhas": [
+        {"configuracao_pais": {}, "probabilidades": {"Baixa": 0.30, "Media": 0.45, "Alta": 0.25}}
+      ]
+    }
+  ],
+
+  "cenarios": [
+    {
+      "id": "S2_alerta_precoce",
+      "tipo_analise": "preditiva",
+      "pergunta": "Quanto o desempenho no 1º semestre altera o risco de evasão de um mesmo perfil de ingresso?",
+      "evidencias_base": {"Faixa_Etaria": "Maduro", "Turno": "Noturno", "Bolsista": "Nao"},
+      "variantes": [
+        {"id": "sem1_baixo", "evidencias_adicionais": {"Desempenho_Sem1": "Baixo"}},
+        {"id": "sem1_alto",  "evidencias_adicionais": {"Desempenho_Sem1": "Alto"}}
+      ],
+      "consultas": ["Desfecho"],
+      "expectativas": [
+        {"tipo": "comparacao", "consulta": "Desfecho", "estado": "Dropout",
+         "maior": "sem1_baixo", "menor": "sem1_alto",
+         "fundamentacao": "Estrutura do modelo: pior desempenho inicial aumenta a chance de desempenho baixo no 2º semestre e, por consequência, de evasão."}
+      ],
+      "relevancia": "Apoia alerta precoce após o primeiro semestre.",
+      "limitacoes": "Associação probabilística, não causalidade."
+    }
+  ],
+
+  "metadados_execucao": {
+    "python": "3.11",
+    "bibliotecas": {"pgmpy": "x.y.z", "networkx": "x.y.z", "pandas": "x.y.z"},
+    "observacao": "Preencher versões a partir do requirements.txt."
+  }
+}

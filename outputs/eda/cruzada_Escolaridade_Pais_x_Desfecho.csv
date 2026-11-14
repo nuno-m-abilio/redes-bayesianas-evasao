@@ -1,0 +1,4 @@
+Escolaridade_Pais,Dropout_prop,Enrolled_prop,Graduate_prop,Dropout_n,Enrolled_n,Graduate_n
+Baixa,0.382,0.138,0.481,512,185,645
+Media,0.287,0.185,0.528,653,420,1201
+Alta,0.317,0.234,0.449,256,189,363
