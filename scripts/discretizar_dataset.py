@@ -29,8 +29,8 @@ DIR_EDA = RAIZ / "outputs" / "eda"
 # Pressao_Financeira é LATENTE: não existe no dataset e não aparece aqui.
 # ---------------------------------------------------------------------------
 ESTADOS: dict[str, list[str]] = {
-    "Area_Curso": ["Saude", "Social_Educacao", "Gestao_Turismo",
-                   "Comunicacao_Design", "Tecnologia_Agro"],
+    "Area_Curso": ["Saude", "Ciencias_Sociais", "Gestao_Turismo",
+                   "Comunicacao_Design", "Ciencias_Agricolas", "Engenharias_Tecnologia"],
     "Faixa_Etaria": ["Jovem", "Adulto", "Maduro"],
     "Escolaridade_Pais": ["Baixa", "Media", "Alta"],
     "Bolsista": ["Sim", "Nao"],
@@ -56,14 +56,12 @@ COLUNAS_ORIGINAIS = [
 
 # Códigos de curso (documentação do UCI) agrupados em áreas.
 AREA_CURSO = {
-    9085: "Saude", 9500: "Saude", 9556: "Saude",
-    8014: "Social_Educacao", 9238: "Social_Educacao", 9853: "Social_Educacao",
-    9147: "Gestao_Turismo", 9254: "Gestao_Turismo",
-    9670: "Gestao_Turismo", 9991: "Gestao_Turismo",
-    171: "Comunicacao_Design", 9070: "Comunicacao_Design",
-    9773: "Comunicacao_Design",
-    33: "Tecnologia_Agro", 9003: "Tecnologia_Agro",
-    9119: "Tecnologia_Agro", 9130: "Tecnologia_Agro",
+    9500: "Saude", 9556: "Saude",
+    8014: "Ciencias_Sociais", 9238: "Ciencias_Sociais", 9853: "Ciencias_Sociais",
+    9147: "Gestao_Turismo", 9254: "Gestao_Turismo", 9991: "Gestao_Turismo",
+    171: "Comunicacao_Design", 9070: "Comunicacao_Design", 9670: "Comunicacao_Design", 9773: "Comunicacao_Design",
+    9003: "Ciencias_Agricolas", 9085: "Ciencias_Agricolas", 9130: "Ciencias_Agricolas",
+    33: "Engenharias_Tecnologia", 9119: "Engenharias_Tecnologia"
 }
 
 # Códigos de qualificação dos pais -> nível 0 (Baixa), 1 (Media), 2 (Alta).

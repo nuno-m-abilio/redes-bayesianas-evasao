@@ -70,7 +70,7 @@ def test_configuracoes_ordem_ultimo_pai_varia_mais_rapido():
     cfgs = d.configuracoes_pais("Turno")  # pais: Area_Curso, Faixa_Etaria
     assert cfgs[0] == {"Area_Curso": "Saude", "Faixa_Etaria": "Jovem"}
     assert cfgs[1] == {"Area_Curso": "Saude", "Faixa_Etaria": "Adulto"}
-    assert cfgs[3] == {"Area_Curso": "Social_Educacao", "Faixa_Etaria": "Jovem"}
+    assert cfgs[3] == {"Area_Curso": "Ciencias_Sociais", "Faixa_Etaria": "Jovem"}
 
 
 @pytest.mark.parametrize("variavel", list(d.VARIAVEIS))

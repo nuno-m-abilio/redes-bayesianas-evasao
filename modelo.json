@@ -6,83 +6,2183 @@
       "nome": "Predict Students' Dropout and Academic Success",
       "fonte": "UCI Machine Learning Repository (id 697)",
       "url": "https://archive.ics.uci.edu/dataset/697",
-      "uso": "Contextualização e justificativa. Nenhum parâmetro foi estimado automaticamente."
+      "uso": "Contextualização e justificativa das escolhas. Nenhum parâmetro foi estimado automaticamente."
     },
-    "nota_causalidade": "Arcos representam hipóteses de dependência; o dataset não comprova causalidade."
+    "nota_causalidade": "Arcos representam hipóteses de dependência probabilística; o dataset não comprova causalidade.",
+    "cpts_preliminares": false
   },
-
   "variaveis": [
+    {
+      "id": "Area_Curso",
+      "nome": "Área do curso",
+      "descricao": "Área de conhecimento do curso, agrupando os códigos de curso do dataset.",
+      "tipo": "raiz",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Saude",
+          "interpretacao": "Enfermagem e higiene oral"
+        },
+        {
+          "id": "Ciencias_Sociais",
+          "interpretacao": "Serviço social e educação básica"
+        },
+        {
+          "id": "Gestao_Turismo",
+          "interpretacao": "Gestão e turismo"
+        },
+        {
+          "id": "Comunicacao_Design",
+          "interpretacao": "Design de comunicação, animação/multimídia, publicidade/gestão de propaganda e jornalismo"
+        },
+        {
+          "id": "Ciencias_Agricolas",
+          "interpretacao": "Agronomia, enfermagem veterinária e equinocultura"
+        },
+        {
+          "id": "Engenharias_Tecnologia",
+          "interpretacao": "Tecnologias de produção de biocombustíveis e engenharia informática"
+        }
+      ]
+    },
+    {
+      "id": "Faixa_Etaria",
+      "nome": "Faixa etária no ingresso",
+      "descricao": "Idade do estudante no momento da matrícula.",
+      "tipo": "raiz",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Jovem",
+          "interpretacao": "idade <= 20 anos"
+        },
+        {
+          "id": "Adulto",
+          "interpretacao": "21 a 25 anos"
+        },
+        {
+          "id": "Maduro",
+          "interpretacao": "idade > 25 anos"
+        }
+      ]
+    },
+    {
+      "id": "Escolaridade_Pais",
+      "nome": "Escolaridade dos pais",
+      "descricao": "Maior nível de escolaridade entre mãe e pai.",
+      "tipo": "raiz",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Baixa",
+          "interpretacao": "ensino básico, sem escolaridade ou desconhecida"
+        },
+        {
+          "id": "Media",
+          "interpretacao": "ensino secundário e equivalentes"
+        },
+        {
+          "id": "Alta",
+          "interpretacao": "ensino superior"
+        }
+      ]
+    },
+    {
+      "id": "Bolsista",
+      "nome": "Bolsista",
+      "descricao": "O estudante recebe bolsa de estudos.",
+      "tipo": "raiz",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Sim",
+          "interpretacao": "possui bolsa"
+        },
+        {
+          "id": "Nao",
+          "interpretacao": "não possui bolsa"
+        }
+      ]
+    },
+    {
+      "id": "Deslocado",
+      "nome": "Deslocado",
+      "descricao": "O estudante vive fora de sua cidade de origem para estudar.",
+      "tipo": "raiz",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Sim",
+          "interpretacao": "estudante deslocado"
+        },
+        {
+          "id": "Nao",
+          "interpretacao": "não deslocado"
+        }
+      ]
+    },
+    {
+      "id": "Nota_Admissao",
+      "nome": "Nota de admissão",
+      "descricao": "Nota de admissão (escala 0-200) discretizada.",
+      "tipo": "raiz",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Baixa",
+          "interpretacao": "nota < 115"
+        },
+        {
+          "id": "Media",
+          "interpretacao": "115 <= nota < 135"
+        },
+        {
+          "id": "Alta",
+          "interpretacao": "nota >= 135"
+        }
+      ]
+    },
+    {
+      "id": "Desemprego",
+      "nome": "Taxa de desemprego no contexto",
+      "descricao": "Taxa de desemprego (contexto macroeconômico) no período do estudante.",
+      "tipo": "raiz",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Baixo",
+          "interpretacao": "taxa <= 11%"
+        },
+        {
+          "id": "Alto",
+          "interpretacao": "taxa > 11%"
+        }
+      ]
+    },
+    {
+      "id": "Turno",
+      "nome": "Turno de frequência",
+      "descricao": "Regime de frequência às aulas.",
+      "tipo": "intermediaria",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Diurno",
+          "interpretacao": "aulas diurnas"
+        },
+        {
+          "id": "Noturno",
+          "interpretacao": "aulas noturnas"
+        }
+      ]
+    },
+    {
+      "id": "Pressao_Financeira",
+      "nome": "Pressão financeira (latente)",
+      "descricao": "Variável latente: grau de pressão financeira sobre o estudante. Não existe no dataset.",
+      "tipo": "latente",
+      "observavel": false,
+      "estados": [
+        {
+          "id": "Baixa",
+          "interpretacao": "baixa pressão financeira"
+        },
+        {
+          "id": "Alta",
+          "interpretacao": "alta pressão financeira"
+        }
+      ]
+    },
+    {
+      "id": "Devedor",
+      "nome": "Devedor",
+      "descricao": "O estudante possui dívida com a instituição.",
+      "tipo": "intermediaria",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Sim",
+          "interpretacao": "possui dívida"
+        },
+        {
+          "id": "Nao",
+          "interpretacao": "sem dívida"
+        }
+      ]
+    },
+    {
+      "id": "Mensalidade_Em_Dia",
+      "nome": "Mensalidade em dia",
+      "descricao": "As taxas acadêmicas estão em dia.",
+      "tipo": "intermediaria",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Sim",
+          "interpretacao": "pagamentos em dia"
+        },
+        {
+          "id": "Nao",
+          "interpretacao": "pagamentos atrasados"
+        }
+      ]
+    },
     {
       "id": "Desempenho_Sem1",
       "nome": "Desempenho no 1º semestre",
-      "descricao": "Taxa de aprovação (aprovadas/inscritas) no 1º semestre",
+      "descricao": "Taxa de aprovação (aprovadas/inscritas) no 1º semestre.",
+      "tipo": "intermediaria",
       "observavel": true,
       "estados": [
-        {"id": "Baixo", "interpretacao": "taxa < 0,50"},
-        {"id": "Medio", "interpretacao": "0,50 <= taxa < 0,85"},
-        {"id": "Alto",  "interpretacao": "taxa >= 0,85"}
+        {
+          "id": "Baixo",
+          "interpretacao": "taxa < 0,50"
+        },
+        {
+          "id": "Medio",
+          "interpretacao": "0,50 <= taxa < 0,85"
+        },
+        {
+          "id": "Alto",
+          "interpretacao": "taxa >= 0,85"
+        }
+      ]
+    },
+    {
+      "id": "Desempenho_Sem2",
+      "nome": "Desempenho no 2º semestre",
+      "descricao": "Taxa de aprovação (aprovadas/inscritas) no 2º semestre.",
+      "tipo": "intermediaria",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Baixo",
+          "interpretacao": "taxa < 0,50"
+        },
+        {
+          "id": "Medio",
+          "interpretacao": "0,50 <= taxa < 0,85"
+        },
+        {
+          "id": "Alto",
+          "interpretacao": "taxa >= 0,85"
+        }
+      ]
+    },
+    {
+      "id": "Desfecho",
+      "nome": "Desfecho acadêmico",
+      "descricao": "Situação do estudante ao final da duração normal do curso.",
+      "tipo": "alvo",
+      "observavel": true,
+      "estados": [
+        {
+          "id": "Dropout",
+          "interpretacao": "evadiu"
+        },
+        {
+          "id": "Enrolled",
+          "interpretacao": "ainda matriculado"
+        },
+        {
+          "id": "Graduate",
+          "interpretacao": "concluiu o curso"
+        }
       ]
     }
   ],
-
   "estrutura": {
     "arcos": [
-      {"de": "Nota_Admissao", "para": "Desempenho_Sem1",
-       "justificativa": "Preparo prévio influencia o rendimento inicial."}
+      {
+        "de": "Area_Curso",
+        "para": "Turno",
+        "justificativa": "Alguns cursos são oferecidos predominantemente no período noturno."
+      },
+      {
+        "de": "Faixa_Etaria",
+        "para": "Turno",
+        "justificativa": "Estudantes mais velhos tendem a conciliar estudo e trabalho, preferindo o noturno."
+      },
+      {
+        "de": "Escolaridade_Pais",
+        "para": "Pressao_Financeira",
+        "justificativa": "Menor escolaridade familiar associa-se a menor renda e menor suporte."
+      },
+      {
+        "de": "Bolsista",
+        "para": "Pressao_Financeira",
+        "justificativa": "A bolsa alivia o custo do estudo."
+      },
+      {
+        "de": "Deslocado",
+        "para": "Pressao_Financeira",
+        "justificativa": "Morar fora de casa acrescenta custos de moradia e transporte."
+      },
+      {
+        "de": "Pressao_Financeira",
+        "para": "Devedor",
+        "justificativa": "Pressão financeira alta leva a dívidas com a instituição (sintoma observável)."
+      },
+      {
+        "de": "Pressao_Financeira",
+        "para": "Mensalidade_Em_Dia",
+        "justificativa": "Pressão financeira alta leva a atrasos de pagamento (sintoma observável)."
+      },
+      {
+        "de": "Nota_Admissao",
+        "para": "Desempenho_Sem1",
+        "justificativa": "Melhor preparo prévio favorece o rendimento inicial."
+      },
+      {
+        "de": "Faixa_Etaria",
+        "para": "Desempenho_Sem1",
+        "justificativa": "Idade influencia a adaptação e a disponibilidade para estudar."
+      },
+      {
+        "de": "Area_Curso",
+        "para": "Desempenho_Sem1",
+        "justificativa": "Cursos têm exigências e taxas de aprovação distintas."
+      },
+      {
+        "de": "Desempenho_Sem1",
+        "para": "Desempenho_Sem2",
+        "justificativa": "O rendimento no 1º semestre persiste no semestre seguinte."
+      },
+      {
+        "de": "Pressao_Financeira",
+        "para": "Desempenho_Sem2",
+        "justificativa": "Pressão financeira reduz o tempo e a energia dedicados aos estudos."
+      },
+      {
+        "de": "Turno",
+        "para": "Desempenho_Sem2",
+        "justificativa": "O turno noturno tende a reduzir o tempo disponível para estudo."
+      },
+      {
+        "de": "Desempenho_Sem2",
+        "para": "Desfecho",
+        "justificativa": "O rendimento recente é o principal indicador do desfecho."
+      },
+      {
+        "de": "Pressao_Financeira",
+        "para": "Desfecho",
+        "justificativa": "Pressão financeira influencia a decisão de abandonar, além do desempenho."
+      },
+      {
+        "de": "Desemprego",
+        "para": "Desfecho",
+        "justificativa": "Contexto econômico afeta a permanência e a conclusão."
+      }
     ],
     "pais": {
-      "Desempenho_Sem1": ["Nota_Admissao", "Faixa_Etaria", "Area_Curso"],
-      "Nota_Admissao": []
+      "Area_Curso": [],
+      "Faixa_Etaria": [],
+      "Escolaridade_Pais": [],
+      "Bolsista": [],
+      "Deslocado": [],
+      "Nota_Admissao": [],
+      "Desemprego": [],
+      "Turno": [
+        "Area_Curso",
+        "Faixa_Etaria"
+      ],
+      "Pressao_Financeira": [
+        "Escolaridade_Pais",
+        "Bolsista",
+        "Deslocado"
+      ],
+      "Devedor": [
+        "Pressao_Financeira"
+      ],
+      "Mensalidade_Em_Dia": [
+        "Pressao_Financeira"
+      ],
+      "Desempenho_Sem1": [
+        "Nota_Admissao",
+        "Faixa_Etaria",
+        "Area_Curso"
+      ],
+      "Desempenho_Sem2": [
+        "Desempenho_Sem1",
+        "Pressao_Financeira",
+        "Turno"
+      ],
+      "Desfecho": [
+        "Desempenho_Sem2",
+        "Pressao_Financeira",
+        "Desemprego"
+      ]
     }
   },
-
   "probabilidades": [
     {
-      "variavel": "Desempenho_Sem1",
-      "pais": ["Nota_Admissao", "Faixa_Etaria", "Area_Curso"],
-      "estados": ["Baixo", "Medio", "Alto"],
+      "variavel": "Area_Curso",
+      "pais": [],
+      "estados": [
+        "Saude",
+        "Ciencias_Sociais",
+        "Gestao_Turismo",
+        "Comunicacao_Design",
+        "Ciencias_Agricolas",
+        "Engenharias_Tecnologia"
+      ],
       "linhas": [
         {
-          "configuracao_pais": {"Nota_Admissao": "Alta", "Faixa_Etaria": "Jovem", "Area_Curso": "Saude"},
-          "probabilidades": {"Baixo": 0.10, "Medio": 0.30, "Alto": 0.60}
+          "configuracao_pais": {},
+          "probabilidades": {
+            "Saude": 0.2,
+            "Ciencias_Sociais": 0.15,
+            "Gestao_Turismo": 0.2,
+            "Comunicacao_Design": 0.25,
+            "Ciencias_Agricolas": 0.15,
+            "Engenharias_Tecnologia": 0.05
+          }
         }
       ],
-      "regra_geracao": "docs/justificativas.md#desempenho-sem1"
+      "regra_geracao": "Distribuição equilibrada entre as 6 áreas de conhecimento agrupadas do dataset."
+    },
+    {
+      "variavel": "Faixa_Etaria",
+      "pais": [],
+      "estados": [
+        "Jovem",
+        "Adulto",
+        "Maduro"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {},
+          "probabilidades": {
+            "Jovem": 0.6,
+            "Adulto": 0.15,
+            "Maduro": 0.25
+          }
+        }
+      ],
+      "regra_geracao": "Predomínio de ingressantes jovens (<=20 anos) vindos do ensino secundário."
+    },
+    {
+      "variavel": "Escolaridade_Pais",
+      "pais": [],
+      "estados": [
+        "Baixa",
+        "Media",
+        "Alta"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {},
+          "probabilidades": {
+            "Baixa": 0.3,
+            "Media": 0.5,
+            "Alta": 0.2
+          }
+        }
+      ],
+      "regra_geracao": "Maior proporção de famílias com escolaridade básica/secundária no contexto analisado."
+    },
+    {
+      "variavel": "Bolsista",
+      "pais": [],
+      "estados": [
+        "Sim",
+        "Nao"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {},
+          "probabilidades": {
+            "Sim": 0.25,
+            "Nao": 0.75
+          }
+        }
+      ],
+      "regra_geracao": "Aproximadamente um quarto dos estudantes conta com bolsa de estudos."
+    },
+    {
+      "variavel": "Deslocado",
+      "pais": [],
+      "estados": [
+        "Sim",
+        "Nao"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {},
+          "probabilidades": {
+            "Sim": 0.55,
+            "Nao": 0.45
+          }
+        }
+      ],
+      "regra_geracao": "Pouco mais da metade dos estudantes reside fora da cidade de origem."
     },
     {
       "variavel": "Nota_Admissao",
       "pais": [],
-      "estados": ["Baixa", "Media", "Alta"],
+      "estados": [
+        "Baixa",
+        "Media",
+        "Alta"
+      ],
       "linhas": [
-        {"configuracao_pais": {}, "probabilidades": {"Baixa": 0.30, "Media": 0.45, "Alta": 0.25}}
-      ]
+        {
+          "configuracao_pais": {},
+          "probabilidades": {
+            "Baixa": 0.2,
+            "Media": 0.55,
+            "Alta": 0.25
+          }
+        }
+      ],
+      "regra_geracao": "Concentração na faixa intermediária de nota de ingresso (115 a 135 pontos)."
+    },
+    {
+      "variavel": "Desemprego",
+      "pais": [],
+      "estados": [
+        "Baixo",
+        "Alto"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {},
+          "probabilidades": {
+            "Baixo": 0.45,
+            "Alto": 0.55
+          }
+        }
+      ],
+      "regra_geracao": "Cenário macroeconômico dividido entre períodos favoráveis e adversos pode ajudar a entender o desempenho dos alunos."
+    },
+    {
+      "variavel": "Turno",
+      "pais": [
+        "Area_Curso",
+        "Faixa_Etaria"
+      ],
+      "estados": [
+        "Diurno",
+        "Noturno"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Saude",
+            "Faixa_Etaria": "Jovem"
+          },
+          "probabilidades": {
+            "Diurno": 0.95,
+            "Noturno": 0.05
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Saude",
+            "Faixa_Etaria": "Adulto"
+          },
+          "probabilidades": {
+            "Diurno": 0.775,
+            "Noturno": 0.225
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Saude",
+            "Faixa_Etaria": "Maduro"
+          },
+          "probabilidades": {
+            "Diurno": 0.6,
+            "Noturno": 0.4
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Ciencias_Sociais",
+            "Faixa_Etaria": "Jovem"
+          },
+          "probabilidades": {
+            "Diurno": 0.6875,
+            "Noturno": 0.3125
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Ciencias_Sociais",
+            "Faixa_Etaria": "Adulto"
+          },
+          "probabilidades": {
+            "Diurno": 0.5125,
+            "Noturno": 0.4875
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Ciencias_Sociais",
+            "Faixa_Etaria": "Maduro"
+          },
+          "probabilidades": {
+            "Diurno": 0.3375,
+            "Noturno": 0.6625
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Gestao_Turismo",
+            "Faixa_Etaria": "Jovem"
+          },
+          "probabilidades": {
+            "Diurno": 0.6,
+            "Noturno": 0.4
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Gestao_Turismo",
+            "Faixa_Etaria": "Adulto"
+          },
+          "probabilidades": {
+            "Diurno": 0.425,
+            "Noturno": 0.575
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Gestao_Turismo",
+            "Faixa_Etaria": "Maduro"
+          },
+          "probabilidades": {
+            "Diurno": 0.25,
+            "Noturno": 0.75
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Comunicacao_Design",
+            "Faixa_Etaria": "Jovem"
+          },
+          "probabilidades": {
+            "Diurno": 0.775,
+            "Noturno": 0.225
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Comunicacao_Design",
+            "Faixa_Etaria": "Adulto"
+          },
+          "probabilidades": {
+            "Diurno": 0.6,
+            "Noturno": 0.4
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Comunicacao_Design",
+            "Faixa_Etaria": "Maduro"
+          },
+          "probabilidades": {
+            "Diurno": 0.425,
+            "Noturno": 0.575
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Ciencias_Agricolas",
+            "Faixa_Etaria": "Jovem"
+          },
+          "probabilidades": {
+            "Diurno": 0.95,
+            "Noturno": 0.05
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Ciencias_Agricolas",
+            "Faixa_Etaria": "Adulto"
+          },
+          "probabilidades": {
+            "Diurno": 0.775,
+            "Noturno": 0.225
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Ciencias_Agricolas",
+            "Faixa_Etaria": "Maduro"
+          },
+          "probabilidades": {
+            "Diurno": 0.6,
+            "Noturno": 0.4
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Engenharias_Tecnologia",
+            "Faixa_Etaria": "Jovem"
+          },
+          "probabilidades": {
+            "Diurno": 0.8625,
+            "Noturno": 0.1375
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Engenharias_Tecnologia",
+            "Faixa_Etaria": "Adulto"
+          },
+          "probabilidades": {
+            "Diurno": 0.6875,
+            "Noturno": 0.3125
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Area_Curso": "Engenharias_Tecnologia",
+            "Faixa_Etaria": "Maduro"
+          },
+          "probabilidades": {
+            "Diurno": 0.5125,
+            "Noturno": 0.4875
+          }
+        }
+      ],
+      "regra_geracao": "Pontuação de adesão ao noturno: idade mais avançada (+3.0) e áreas com oferta noturna (+2.0)."
+    },
+    {
+      "variavel": "Pressao_Financeira",
+      "pais": [
+        "Escolaridade_Pais",
+        "Bolsista",
+        "Deslocado"
+      ],
+      "estados": [
+        "Baixa",
+        "Alta"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Baixa",
+            "Bolsista": "Sim",
+            "Deslocado": "Sim"
+          },
+          "probabilidades": {
+            "Baixa": 0.42,
+            "Alta": 0.58
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Baixa",
+            "Bolsista": "Sim",
+            "Deslocado": "Nao"
+          },
+          "probabilidades": {
+            "Baixa": 0.66,
+            "Alta": 0.34
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Baixa",
+            "Bolsista": "Nao",
+            "Deslocado": "Sim"
+          },
+          "probabilidades": {
+            "Baixa": 0.1,
+            "Alta": 0.9
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Baixa",
+            "Bolsista": "Nao",
+            "Deslocado": "Nao"
+          },
+          "probabilidades": {
+            "Baixa": 0.34,
+            "Alta": 0.66
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Media",
+            "Bolsista": "Sim",
+            "Deslocado": "Sim"
+          },
+          "probabilidades": {
+            "Baixa": 0.58,
+            "Alta": 0.42
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Media",
+            "Bolsista": "Sim",
+            "Deslocado": "Nao"
+          },
+          "probabilidades": {
+            "Baixa": 0.82,
+            "Alta": 0.18
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Media",
+            "Bolsista": "Nao",
+            "Deslocado": "Sim"
+          },
+          "probabilidades": {
+            "Baixa": 0.26,
+            "Alta": 0.74
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Media",
+            "Bolsista": "Nao",
+            "Deslocado": "Nao"
+          },
+          "probabilidades": {
+            "Baixa": 0.5,
+            "Alta": 0.5
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Alta",
+            "Bolsista": "Sim",
+            "Deslocado": "Sim"
+          },
+          "probabilidades": {
+            "Baixa": 0.66,
+            "Alta": 0.34
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Alta",
+            "Bolsista": "Sim",
+            "Deslocado": "Nao"
+          },
+          "probabilidades": {
+            "Baixa": 0.9,
+            "Alta": 0.1
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Alta",
+            "Bolsista": "Nao",
+            "Deslocado": "Sim"
+          },
+          "probabilidades": {
+            "Baixa": 0.34,
+            "Alta": 0.66
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Escolaridade_Pais": "Alta",
+            "Bolsista": "Nao",
+            "Deslocado": "Nao"
+          },
+          "probabilidades": {
+            "Baixa": 0.58,
+            "Alta": 0.42
+          }
+        }
+      ],
+      "regra_geracao": "Pontuação de risco: ausência de bolsa (+2.0), deslocamento (+1.5) e baixa escolaridade dos pais (+1.5)."
+    },
+    {
+      "variavel": "Desempenho_Sem1",
+      "pais": [
+        "Nota_Admissao",
+        "Faixa_Etaria",
+        "Area_Curso"
+      ],
+      "estados": [
+        "Baixo",
+        "Medio",
+        "Alto"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Saude"
+          },
+          "probabilidades": {
+            "Baixo": 0.41,
+            "Medio": 0.25,
+            "Alto": 0.34
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Ciencias_Sociais"
+          },
+          "probabilidades": {
+            "Baixo": 0.434,
+            "Medio": 0.25,
+            "Alto": 0.316
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Gestao_Turismo"
+          },
+          "probabilidades": {
+            "Baixo": 0.47,
+            "Medio": 0.25,
+            "Alto": 0.28
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Comunicacao_Design"
+          },
+          "probabilidades": {
+            "Baixo": 0.446,
+            "Medio": 0.25,
+            "Alto": 0.304
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Ciencias_Agricolas"
+          },
+          "probabilidades": {
+            "Baixo": 0.494,
+            "Medio": 0.25,
+            "Alto": 0.256
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Engenharias_Tecnologia"
+          },
+          "probabilidades": {
+            "Baixo": 0.53,
+            "Medio": 0.25,
+            "Alto": 0.22
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Saude"
+          },
+          "probabilidades": {
+            "Baixo": 0.47,
+            "Medio": 0.25,
+            "Alto": 0.28
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Ciencias_Sociais"
+          },
+          "probabilidades": {
+            "Baixo": 0.494,
+            "Medio": 0.25,
+            "Alto": 0.256
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Gestao_Turismo"
+          },
+          "probabilidades": {
+            "Baixo": 0.53,
+            "Medio": 0.25,
+            "Alto": 0.22
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Comunicacao_Design"
+          },
+          "probabilidades": {
+            "Baixo": 0.506,
+            "Medio": 0.25,
+            "Alto": 0.244
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Ciencias_Agricolas"
+          },
+          "probabilidades": {
+            "Baixo": 0.554,
+            "Medio": 0.25,
+            "Alto": 0.196
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Engenharias_Tecnologia"
+          },
+          "probabilidades": {
+            "Baixo": 0.59,
+            "Medio": 0.25,
+            "Alto": 0.16
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Saude"
+          },
+          "probabilidades": {
+            "Baixo": 0.53,
+            "Medio": 0.25,
+            "Alto": 0.22
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Ciencias_Sociais"
+          },
+          "probabilidades": {
+            "Baixo": 0.554,
+            "Medio": 0.25,
+            "Alto": 0.196
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Gestao_Turismo"
+          },
+          "probabilidades": {
+            "Baixo": 0.59,
+            "Medio": 0.25,
+            "Alto": 0.16
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Comunicacao_Design"
+          },
+          "probabilidades": {
+            "Baixo": 0.566,
+            "Medio": 0.25,
+            "Alto": 0.184
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Ciencias_Agricolas"
+          },
+          "probabilidades": {
+            "Baixo": 0.614,
+            "Medio": 0.25,
+            "Alto": 0.136
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Baixa",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Engenharias_Tecnologia"
+          },
+          "probabilidades": {
+            "Baixo": 0.65,
+            "Medio": 0.25,
+            "Alto": 0.1
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Saude"
+          },
+          "probabilidades": {
+            "Baixo": 0.23,
+            "Medio": 0.25,
+            "Alto": 0.52
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Ciencias_Sociais"
+          },
+          "probabilidades": {
+            "Baixo": 0.254,
+            "Medio": 0.25,
+            "Alto": 0.496
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Gestao_Turismo"
+          },
+          "probabilidades": {
+            "Baixo": 0.29,
+            "Medio": 0.25,
+            "Alto": 0.46
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Comunicacao_Design"
+          },
+          "probabilidades": {
+            "Baixo": 0.266,
+            "Medio": 0.25,
+            "Alto": 0.484
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Ciencias_Agricolas"
+          },
+          "probabilidades": {
+            "Baixo": 0.314,
+            "Medio": 0.25,
+            "Alto": 0.436
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Engenharias_Tecnologia"
+          },
+          "probabilidades": {
+            "Baixo": 0.35,
+            "Medio": 0.25,
+            "Alto": 0.4
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Saude"
+          },
+          "probabilidades": {
+            "Baixo": 0.29,
+            "Medio": 0.25,
+            "Alto": 0.46
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Ciencias_Sociais"
+          },
+          "probabilidades": {
+            "Baixo": 0.314,
+            "Medio": 0.25,
+            "Alto": 0.436
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Gestao_Turismo"
+          },
+          "probabilidades": {
+            "Baixo": 0.35,
+            "Medio": 0.25,
+            "Alto": 0.4
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Comunicacao_Design"
+          },
+          "probabilidades": {
+            "Baixo": 0.326,
+            "Medio": 0.25,
+            "Alto": 0.424
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Ciencias_Agricolas"
+          },
+          "probabilidades": {
+            "Baixo": 0.374,
+            "Medio": 0.25,
+            "Alto": 0.376
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Engenharias_Tecnologia"
+          },
+          "probabilidades": {
+            "Baixo": 0.41,
+            "Medio": 0.25,
+            "Alto": 0.34
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Saude"
+          },
+          "probabilidades": {
+            "Baixo": 0.35,
+            "Medio": 0.25,
+            "Alto": 0.4
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Ciencias_Sociais"
+          },
+          "probabilidades": {
+            "Baixo": 0.374,
+            "Medio": 0.25,
+            "Alto": 0.376
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Gestao_Turismo"
+          },
+          "probabilidades": {
+            "Baixo": 0.41,
+            "Medio": 0.25,
+            "Alto": 0.34
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Comunicacao_Design"
+          },
+          "probabilidades": {
+            "Baixo": 0.386,
+            "Medio": 0.25,
+            "Alto": 0.364
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Ciencias_Agricolas"
+          },
+          "probabilidades": {
+            "Baixo": 0.434,
+            "Medio": 0.25,
+            "Alto": 0.316
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Media",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Engenharias_Tecnologia"
+          },
+          "probabilidades": {
+            "Baixo": 0.47,
+            "Medio": 0.25,
+            "Alto": 0.28
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Saude"
+          },
+          "probabilidades": {
+            "Baixo": 0.05,
+            "Medio": 0.25,
+            "Alto": 0.7
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Ciencias_Sociais"
+          },
+          "probabilidades": {
+            "Baixo": 0.074,
+            "Medio": 0.25,
+            "Alto": 0.676
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Gestao_Turismo"
+          },
+          "probabilidades": {
+            "Baixo": 0.11,
+            "Medio": 0.25,
+            "Alto": 0.64
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Comunicacao_Design"
+          },
+          "probabilidades": {
+            "Baixo": 0.086,
+            "Medio": 0.25,
+            "Alto": 0.664
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Ciencias_Agricolas"
+          },
+          "probabilidades": {
+            "Baixo": 0.134,
+            "Medio": 0.25,
+            "Alto": 0.616
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Jovem",
+            "Area_Curso": "Engenharias_Tecnologia"
+          },
+          "probabilidades": {
+            "Baixo": 0.17,
+            "Medio": 0.25,
+            "Alto": 0.58
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Saude"
+          },
+          "probabilidades": {
+            "Baixo": 0.11,
+            "Medio": 0.25,
+            "Alto": 0.64
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Ciencias_Sociais"
+          },
+          "probabilidades": {
+            "Baixo": 0.134,
+            "Medio": 0.25,
+            "Alto": 0.616
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Gestao_Turismo"
+          },
+          "probabilidades": {
+            "Baixo": 0.17,
+            "Medio": 0.25,
+            "Alto": 0.58
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Comunicacao_Design"
+          },
+          "probabilidades": {
+            "Baixo": 0.146,
+            "Medio": 0.25,
+            "Alto": 0.604
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Ciencias_Agricolas"
+          },
+          "probabilidades": {
+            "Baixo": 0.194,
+            "Medio": 0.25,
+            "Alto": 0.556
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Adulto",
+            "Area_Curso": "Engenharias_Tecnologia"
+          },
+          "probabilidades": {
+            "Baixo": 0.23,
+            "Medio": 0.25,
+            "Alto": 0.52
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Saude"
+          },
+          "probabilidades": {
+            "Baixo": 0.17,
+            "Medio": 0.25,
+            "Alto": 0.58
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Ciencias_Sociais"
+          },
+          "probabilidades": {
+            "Baixo": 0.194,
+            "Medio": 0.25,
+            "Alto": 0.556
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Gestao_Turismo"
+          },
+          "probabilidades": {
+            "Baixo": 0.23,
+            "Medio": 0.25,
+            "Alto": 0.52
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Comunicacao_Design"
+          },
+          "probabilidades": {
+            "Baixo": 0.206,
+            "Medio": 0.25,
+            "Alto": 0.544
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Ciencias_Agricolas"
+          },
+          "probabilidades": {
+            "Baixo": 0.254,
+            "Medio": 0.25,
+            "Alto": 0.496
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Nota_Admissao": "Alta",
+            "Faixa_Etaria": "Maduro",
+            "Area_Curso": "Engenharias_Tecnologia"
+          },
+          "probabilidades": {
+            "Baixo": 0.29,
+            "Medio": 0.25,
+            "Alto": 0.46
+          }
+        }
+      ],
+      "regra_geracao": "Pontuação de dificuldade inicial: nota de admissão (+3.0), faixa etária (+1.0) e exigência da área (+1.0)."
+    },
+    {
+      "variavel": "Devedor",
+      "pais": [
+        "Pressao_Financeira"
+      ],
+      "estados": [
+        "Sim",
+        "Nao"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {
+            "Pressao_Financeira": "Baixa"
+          },
+          "probabilidades": {
+            "Sim": 0.05,
+            "Nao": 0.95
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Pressao_Financeira": "Alta"
+          },
+          "probabilidades": {
+            "Sim": 0.45,
+            "Nao": 0.55
+          }
+        }
+      ],
+      "regra_geracao": "Sintoma de Pressao_Financeira: pressão alta eleva probabilidade de dívida de 5% para 45%."
+    },
+    {
+      "variavel": "Mensalidade_Em_Dia",
+      "pais": [
+        "Pressao_Financeira"
+      ],
+      "estados": [
+        "Sim",
+        "Nao"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {
+            "Pressao_Financeira": "Baixa"
+          },
+          "probabilidades": {
+            "Sim": 0.95,
+            "Nao": 0.05
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Pressao_Financeira": "Alta"
+          },
+          "probabilidades": {
+            "Sim": 0.55,
+            "Nao": 0.45
+          }
+        }
+      ],
+      "regra_geracao": "Sintoma de Pressao_Financeira: pressão alta eleva atraso de mensalidade de 5% para 45%."
+    },
+    {
+      "variavel": "Desempenho_Sem2",
+      "pais": [
+        "Desempenho_Sem1",
+        "Pressao_Financeira",
+        "Turno"
+      ],
+      "estados": [
+        "Baixo",
+        "Medio",
+        "Alto"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Baixo",
+            "Pressao_Financeira": "Baixa",
+            "Turno": "Diurno"
+          },
+          "probabilidades": {
+            "Baixo": 0.5782,
+            "Medio": 0.1809,
+            "Alto": 0.2409
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Baixo",
+            "Pressao_Financeira": "Baixa",
+            "Turno": "Noturno"
+          },
+          "probabilidades": {
+            "Baixo": 0.6454,
+            "Medio": 0.1773,
+            "Alto": 0.1773
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Baixo",
+            "Pressao_Financeira": "Alta",
+            "Turno": "Diurno"
+          },
+          "probabilidades": {
+            "Baixo": 0.7128,
+            "Medio": 0.1736,
+            "Alto": 0.1136
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Baixo",
+            "Pressao_Financeira": "Alta",
+            "Turno": "Noturno"
+          },
+          "probabilidades": {
+            "Baixo": 0.78,
+            "Medio": 0.17,
+            "Alto": 0.05
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Medio",
+            "Pressao_Financeira": "Baixa",
+            "Turno": "Diurno"
+          },
+          "probabilidades": {
+            "Baixo": 0.3091,
+            "Medio": 0.1955,
+            "Alto": 0.4954
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Medio",
+            "Pressao_Financeira": "Baixa",
+            "Turno": "Noturno"
+          },
+          "probabilidades": {
+            "Baixo": 0.3764,
+            "Medio": 0.1918,
+            "Alto": 0.4318
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Medio",
+            "Pressao_Financeira": "Alta",
+            "Turno": "Diurno"
+          },
+          "probabilidades": {
+            "Baixo": 0.4436,
+            "Medio": 0.1882,
+            "Alto": 0.3682
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Medio",
+            "Pressao_Financeira": "Alta",
+            "Turno": "Noturno"
+          },
+          "probabilidades": {
+            "Baixo": 0.511,
+            "Medio": 0.1845,
+            "Alto": 0.3045
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Alto",
+            "Pressao_Financeira": "Baixa",
+            "Turno": "Diurno"
+          },
+          "probabilidades": {
+            "Baixo": 0.04,
+            "Medio": 0.21,
+            "Alto": 0.75
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Alto",
+            "Pressao_Financeira": "Baixa",
+            "Turno": "Noturno"
+          },
+          "probabilidades": {
+            "Baixo": 0.1073,
+            "Medio": 0.2064,
+            "Alto": 0.6863
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Alto",
+            "Pressao_Financeira": "Alta",
+            "Turno": "Diurno"
+          },
+          "probabilidades": {
+            "Baixo": 0.1745,
+            "Medio": 0.2027,
+            "Alto": 0.6228
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem1": "Alto",
+            "Pressao_Financeira": "Alta",
+            "Turno": "Noturno"
+          },
+          "probabilidades": {
+            "Baixo": 0.2418,
+            "Medio": 0.1991,
+            "Alto": 0.5591
+          }
+        }
+      ],
+      "regra_geracao": "Pontuação de risco no 2º sem: histórico do 1º sem (+4.0), pressão financeira (+1.0) e turno noturno (+0.5)."
+    },
+    {
+      "variavel": "Desfecho",
+      "pais": [
+        "Desempenho_Sem2",
+        "Pressao_Financeira",
+        "Desemprego"
+      ],
+      "estados": [
+        "Dropout",
+        "Enrolled",
+        "Graduate"
+      ],
+      "linhas": [
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Baixo",
+            "Pressao_Financeira": "Baixa",
+            "Desemprego": "Baixo"
+          },
+          "probabilidades": {
+            "Dropout": 0.56,
+            "Enrolled": 0.14,
+            "Graduate": 0.3
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Baixo",
+            "Pressao_Financeira": "Baixa",
+            "Desemprego": "Alto"
+          },
+          "probabilidades": {
+            "Dropout": 0.625,
+            "Enrolled": 0.1375,
+            "Graduate": 0.2375
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Baixo",
+            "Pressao_Financeira": "Alta",
+            "Desemprego": "Baixo"
+          },
+          "probabilidades": {
+            "Dropout": 0.755,
+            "Enrolled": 0.1325,
+            "Graduate": 0.1125
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Baixo",
+            "Pressao_Financeira": "Alta",
+            "Desemprego": "Alto"
+          },
+          "probabilidades": {
+            "Dropout": 0.82,
+            "Enrolled": 0.13,
+            "Graduate": 0.05
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Medio",
+            "Pressao_Financeira": "Baixa",
+            "Desemprego": "Baixo"
+          },
+          "probabilidades": {
+            "Dropout": 0.274,
+            "Enrolled": 0.151,
+            "Graduate": 0.575
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Medio",
+            "Pressao_Financeira": "Baixa",
+            "Desemprego": "Alto"
+          },
+          "probabilidades": {
+            "Dropout": 0.339,
+            "Enrolled": 0.1485,
+            "Graduate": 0.5125
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Medio",
+            "Pressao_Financeira": "Alta",
+            "Desemprego": "Baixo"
+          },
+          "probabilidades": {
+            "Dropout": 0.469,
+            "Enrolled": 0.1435,
+            "Graduate": 0.3875
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Medio",
+            "Pressao_Financeira": "Alta",
+            "Desemprego": "Alto"
+          },
+          "probabilidades": {
+            "Dropout": 0.534,
+            "Enrolled": 0.141,
+            "Graduate": 0.325
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Alto",
+            "Pressao_Financeira": "Baixa",
+            "Desemprego": "Baixo"
+          },
+          "probabilidades": {
+            "Dropout": 0.04,
+            "Enrolled": 0.16,
+            "Graduate": 0.8
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Alto",
+            "Pressao_Financeira": "Baixa",
+            "Desemprego": "Alto"
+          },
+          "probabilidades": {
+            "Dropout": 0.105,
+            "Enrolled": 0.1575,
+            "Graduate": 0.7375
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Alto",
+            "Pressao_Financeira": "Alta",
+            "Desemprego": "Baixo"
+          },
+          "probabilidades": {
+            "Dropout": 0.235,
+            "Enrolled": 0.1525,
+            "Graduate": 0.6125
+          }
+        },
+        {
+          "configuracao_pais": {
+            "Desempenho_Sem2": "Alto",
+            "Pressao_Financeira": "Alta",
+            "Desemprego": "Alto"
+          },
+          "probabilidades": {
+            "Dropout": 0.3,
+            "Enrolled": 0.15,
+            "Graduate": 0.55
+          }
+        }
+      ],
+      "regra_geracao": "Pontuação de risco de evasão: desempenho no 2º sem (+4.0), pressão financeira (+1.5) e desemprego (+0.5)."
     }
   ],
-
   "cenarios": [
+    {
+      "id": "S1_preditivo_ingresso",
+      "tipo_analise": "preditiva",
+      "pergunta": "Como o perfil de ingresso, sem nenhuma informação de desempenho, altera a distribuição do desfecho?",
+      "evidencias_base": {},
+      "variantes": [
+        {
+          "id": "perfil_risco",
+          "descricao": "Noturno, maduro, sem bolsa, nota de admissão baixa",
+          "evidencias_adicionais": {
+            "Turno": "Noturno",
+            "Faixa_Etaria": "Maduro",
+            "Bolsista": "Nao",
+            "Nota_Admissao": "Baixa"
+          }
+        },
+        {
+          "id": "perfil_protegido",
+          "descricao": "Diurno, jovem, bolsista, nota de admissão alta",
+          "evidencias_adicionais": {
+            "Turno": "Diurno",
+            "Faixa_Etaria": "Jovem",
+            "Bolsista": "Sim",
+            "Nota_Admissao": "Alta"
+          }
+        }
+      ],
+      "consultas": [
+        "Desfecho"
+      ],
+      "expectativas": [
+        {
+          "tipo": "comparacao",
+          "consulta": "Desfecho",
+          "estado": "Dropout",
+          "maior": "perfil_risco",
+          "menor": "perfil_protegido",
+          "fundamentacao": "Estrutura: o perfil de risco piora o desempenho esperado e aumenta a pressão financeira, ambos pais do desfecho."
+        },
+        {
+          "tipo": "comparacao",
+          "consulta": "Desfecho",
+          "estado": "Graduate",
+          "maior": "perfil_protegido",
+          "menor": "perfil_risco",
+          "fundamentacao": "Efeito oposto ao anterior sobre a conclusão do curso."
+        }
+      ],
+      "relevancia": "Estima o risco no momento da matrícula, quando só o perfil de ingresso é conhecido.",
+      "limitacoes": "Associação probabilística entre perfis agregados; não implica causalidade nem se aplica a indivíduos."
+    },
     {
       "id": "S2_alerta_precoce",
       "tipo_analise": "preditiva",
       "pergunta": "Quanto o desempenho no 1º semestre altera o risco de evasão de um mesmo perfil de ingresso?",
-      "evidencias_base": {"Faixa_Etaria": "Maduro", "Turno": "Noturno", "Bolsista": "Nao"},
+      "evidencias_base": {
+        "Faixa_Etaria": "Maduro",
+        "Turno": "Noturno",
+        "Bolsista": "Nao"
+      },
       "variantes": [
-        {"id": "sem1_baixo", "evidencias_adicionais": {"Desempenho_Sem1": "Baixo"}},
-        {"id": "sem1_alto",  "evidencias_adicionais": {"Desempenho_Sem1": "Alto"}}
+        {
+          "id": "sem1_baixo",
+          "descricao": "Desempenho baixo no 1º semestre",
+          "evidencias_adicionais": {
+            "Desempenho_Sem1": "Baixo"
+          }
+        },
+        {
+          "id": "sem1_alto",
+          "descricao": "Desempenho alto no 1º semestre",
+          "evidencias_adicionais": {
+            "Desempenho_Sem1": "Alto"
+          }
+        }
       ],
-      "consultas": ["Desfecho"],
+      "consultas": [
+        "Desfecho",
+        "Desempenho_Sem2"
+      ],
       "expectativas": [
-        {"tipo": "comparacao", "consulta": "Desfecho", "estado": "Dropout",
-         "maior": "sem1_baixo", "menor": "sem1_alto",
-         "fundamentacao": "Estrutura do modelo: pior desempenho inicial aumenta a chance de desempenho baixo no 2º semestre e, por consequência, de evasão."}
+        {
+          "tipo": "comparacao",
+          "consulta": "Desfecho",
+          "estado": "Dropout",
+          "maior": "sem1_baixo",
+          "menor": "sem1_alto",
+          "fundamentacao": "Estrutura: Sem1 influencia Sem2, que influencia o Desfecho; a informação se propaga pelo caminho Sem1 -> Sem2 -> Desfecho."
+        },
+        {
+          "tipo": "comparacao",
+          "consulta": "Desempenho_Sem2",
+          "estado": "Baixo",
+          "maior": "sem1_baixo",
+          "menor": "sem1_alto",
+          "fundamentacao": "Arco direto Sem1 -> Sem2."
+        }
       ],
-      "relevancia": "Apoia alerta precoce após o primeiro semestre.",
-      "limitacoes": "Associação probabilística, não causalidade."
+      "relevancia": "Apoia um sistema de alerta precoce ao final do primeiro semestre.",
+      "limitacoes": "O 1º semestre é evidência de risco, não causa isolada de evasão."
+    },
+    {
+      "id": "S3_diagnostico",
+      "tipo_analise": "diagnostica",
+      "pergunta": "Sabendo que o estudante evadiu, quais condições ficam mais prováveis?",
+      "evidencias_base": {},
+      "variantes": [
+        {
+          "id": "prior",
+          "descricao": "Sem evidência (distribuição a priori)",
+          "evidencias_adicionais": {}
+        },
+        {
+          "id": "dropout",
+          "descricao": "Desfecho = Dropout",
+          "evidencias_adicionais": {
+            "Desfecho": "Dropout"
+          }
+        }
+      ],
+      "consultas": [
+        "Pressao_Financeira",
+        "Desempenho_Sem2",
+        "Devedor",
+        "Mensalidade_Em_Dia"
+      ],
+      "expectativas": [
+        {
+          "tipo": "comparacao",
+          "consulta": "Pressao_Financeira",
+          "estado": "Alta",
+          "maior": "dropout",
+          "menor": "prior",
+          "fundamentacao": "Pressao_Financeira é pai direto do Desfecho; observar Dropout eleva sua probabilidade."
+        },
+        {
+          "tipo": "comparacao",
+          "consulta": "Desempenho_Sem2",
+          "estado": "Baixo",
+          "maior": "dropout",
+          "menor": "prior",
+          "fundamentacao": "Desempenho_Sem2 é pai direto do Desfecho."
+        },
+        {
+          "tipo": "comparacao",
+          "consulta": "Devedor",
+          "estado": "Sim",
+          "maior": "dropout",
+          "menor": "prior",
+          "fundamentacao": "Efeito INDIRETO: Dropout eleva Pressao_Financeira Alta, que eleva Devedor Sim."
+        },
+        {
+          "tipo": "comparacao",
+          "consulta": "Mensalidade_Em_Dia",
+          "estado": "Nao",
+          "maior": "dropout",
+          "menor": "prior",
+          "fundamentacao": "Efeito indireto via Pressao_Financeira, como em Devedor."
+        }
+      ],
+      "relevancia": "Identifica sinais associados à evasão, úteis para priorizar acompanhamento.",
+      "limitacoes": "Raciocínio diagnóstico (efeito para causa) não prova que as condições causaram a evasão."
+    },
+    {
+      "id": "S4_prescritivo",
+      "tipo_analise": "prescritiva",
+      "pergunta": "Para um perfil de risco, vale a pena conceder bolsa, considerando probabilidades, utilidades e custo?",
+      "evidencias_base": {
+        "Faixa_Etaria": "Maduro",
+        "Turno": "Noturno",
+        "Nota_Admissao": "Baixa",
+        "Escolaridade_Pais": "Baixa",
+        "Deslocado": "Sim",
+        "Desemprego": "Alto"
+      },
+      "variantes": [
+        {
+          "id": "bolsa_sim",
+          "descricao": "Com bolsa",
+          "evidencias_adicionais": {
+            "Bolsista": "Sim"
+          }
+        },
+        {
+          "id": "bolsa_nao",
+          "descricao": "Sem bolsa",
+          "evidencias_adicionais": {
+            "Bolsista": "Nao"
+          }
+        }
+      ],
+      "consultas": [
+        "Desfecho"
+      ],
+      "expectativas": [
+        {
+          "tipo": "comparacao",
+          "consulta": "Desfecho",
+          "estado": "Dropout",
+          "maior": "bolsa_nao",
+          "menor": "bolsa_sim",
+          "fundamentacao": "Estrutura: Bolsista reduz Pressao_Financeira, que é pai do Desfecho e de Desempenho_Sem2."
+        }
+      ],
+      "decisao": {
+        "consulta": "Desfecho",
+        "utilidades": {
+          "Graduate": 100,
+          "Enrolled": 20,
+          "Dropout": -100
+        },
+        "alternativas": {
+          "bolsa_sim": {
+            "variante": "bolsa_sim",
+            "custo": 15
+          },
+          "bolsa_nao": {
+            "variante": "bolsa_nao",
+            "custo": 0
+          }
+        },
+        "nota": "Utilidades e custo são hipóteses ilustrativas do grupo. A comparação é de evidências, não de efeito causal garantido."
+      },
+      "relevancia": "Compara alternativas de apoio financeiro com critério explícito (utilidade esperada).",
+      "limitacoes": "O arco Bolsista -> Pressao_Financeira é hipótese; o dataset é observacional e não comprova o efeito de uma intervenção."
     }
   ],
-
   "metadados_execucao": {
-    "python": "3.11",
-    "bibliotecas": {"pgmpy": "x.y.z", "networkx": "x.y.z", "pandas": "x.y.z"},
-    "observacao": "Preencher versões a partir do requirements.txt."
+    "python_minimo": "3.11",
+    "bibliotecas": {
+      "pgmpy": "1.1.2",
+      "networkx": "3.6.1",
+      "pandas": "3.0.4",
+      "numpy": "2.5.0",
+      "matplotlib": "3.11.0",
+      "pydot": "4.0.1",
+      "pytest": "9.2.0",
+      "jsonschema": "4.26.0"
+    },
+    "observacao": "Versões lidas do ambiente em que o modelo.json foi gerado."
   }
 }
