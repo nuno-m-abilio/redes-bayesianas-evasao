@@ -60,6 +60,16 @@ def test_validar_avisa_quando_faltam_variaveis_e_cenarios(capsys):
     assert "pelo menos 4 cenários" in saida
 
 
+def test_validar_avisa_quando_as_cpts_sao_preliminares(capsys, tmp_path):
+    modelo = json.loads(EXEMPLO.read_text(encoding="utf-8"))
+    modelo["projeto"]["cpts_preliminares"] = True
+    caminho = tmp_path / "prelim.json"
+    caminho.write_text(json.dumps(modelo), encoding="utf-8")
+    codigo, saida, _ = rodar(capsys, "validar", "--modelo", caminho)
+    assert codigo == 0
+    assert "preliminares" in saida
+
+
 def test_validar_arquivo_inexistente(capsys, tmp_path):
     codigo, _, erro = rodar(capsys, "validar", "--modelo", tmp_path / "nao_existe.json")
     assert codigo == 1

@@ -9,7 +9,7 @@ import pytest
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "montar_zip.py"
 
 OBRIGATORIOS = [
-    "README.md", "requirements.txt", "pytest.ini", "modelo.json",
+    "README.md", "requirements.txt", "pytest.ini", "pyproject.toml", "modelo.json",
     "docs/modelo_json_guia.md", "docs/uso_de_ia.md", "docs/exemplos/modelo_exemplo.json",
     "src/bn_evasao/__init__.py", "tests/test_ok.py", "slides/apresentacao.pdf",
 ]
@@ -28,12 +28,13 @@ def repo(tmp_path):
     for rel in OBRIGATORIOS:
         escrever(raiz, rel)
     escrever(raiz, "pytest.ini", "[pytest]\npythonpath = src\ntestpaths = tests\n")
+    escrever(raiz, "pyproject.toml", '[project]\nname = "falso"\nversion = "0"\n')
     escrever(raiz, "tests/test_ok.py", "def test_ok():\n    assert True\n")
     escrever(raiz, "data/README.md")
     escrever(raiz, "data/processed/dados_discretizados.csv")
     for lixo in [".git/config", ".venv/lib/x.py", "src/bn_evasao/__pycache__/a.pyc",
                  "data/raw/data.csv", "dist/antigo.zip", ".pytest_cache/v", ".coverage",
-                 "outputs/.DS_Store"]:
+                 "outputs/.DS_Store", "src/bn_evasao.egg-info/PKG-INFO", "build/lib/x.py"]:
         escrever(raiz, lixo)
     return raiz
 
@@ -52,7 +53,8 @@ def test_gera_zip_com_nome_conteudo_e_sem_lixo(repo):
     assert set(OBRIGATORIOS) <= nomes
     assert {"data/README.md", "data/processed/dados_discretizados.csv"} <= nomes
     for lixo in [".git/config", ".venv/lib/x.py", "src/bn_evasao/__pycache__/a.pyc",
-                 "data/raw/data.csv", "dist/antigo.zip", ".coverage", "outputs/.DS_Store"]:
+                 "data/raw/data.csv", "dist/antigo.zip", ".coverage", "outputs/.DS_Store",
+                 "src/bn_evasao.egg-info/PKG-INFO", "build/lib/x.py"]:
         assert lixo not in nomes
     assert "ZIP íntegro" in resultado.stdout
 
@@ -83,7 +85,7 @@ def test_sem_integrantes_e_erro_de_uso(repo):
     assert rodar(repo).returncode == 2
 
 
-@pytest.mark.parametrize("faltando", ["modelo.json", "docs/uso_de_ia.md", "README.md"])
+@pytest.mark.parametrize("faltando", ["modelo.json", "docs/uso_de_ia.md", "README.md", "pyproject.toml"])
 def test_arquivo_obrigatorio_ausente(repo, faltando):
     (repo / faltando).unlink()
     resultado = rodar(repo, "JoaoDS")

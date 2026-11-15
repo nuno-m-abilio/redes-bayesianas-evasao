@@ -4,6 +4,10 @@ O schema cobre a forma do documento: chaves obrigatórias, tipos, padrão dos
 identificadores e faixa dos valores. As regras que envolvem referências cruzadas
 (pai existe, CPT completa, soma 1, grafo acíclico) ficam em loader.py.
 
+Os campos opcionais "tipo" (papel da variável) e "cpts_preliminares" (CPTs ainda
+provisórias) existem para o gerador do modelo. O loader confere se o tipo é coerente
+com os arcos.
+
 Identificadores de variáveis e estados usam apenas letras, dígitos e sublinhado,
 começando por letra, sem acentos. O campo tipo_analise dos cenários aceita
 descritiva, diagnostica, preditiva ou prescritiva (sem acento).
@@ -36,6 +40,7 @@ SCHEMA_MODELO: dict[str, Any] = {
                 "tema": _TEXTO,
                 "pergunta_principal": _TEXTO,
                 "nota_causalidade": _TEXTO,
+                "cpts_preliminares": {"type": "boolean"},
                 "dataset": {
                     "type": "object",
                     "required": ["nome", "fonte"],
@@ -61,6 +66,7 @@ SCHEMA_MODELO: dict[str, Any] = {
                     "nome": _TEXTO,
                     "descricao": _TEXTO,
                     "observavel": {"type": "boolean"},
+                    "tipo": {"enum": ["raiz", "intermediaria", "latente", "alvo"]},
                     "estados": {
                         "type": "array",
                         "minItems": 2,

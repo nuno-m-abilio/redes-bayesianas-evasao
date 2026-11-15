@@ -208,3 +208,60 @@ def test_cpt_invalida(modelo, alterar, trecho):
 def test_soma_dentro_da_tolerancia_e_aceita(modelo):
     _soma_quase_1_dentro_da_tolerancia(modelo)
     validar_modelo(modelo)
+
+
+# ---------------------------------------------------------------------------
+# Campos opcionais escritos pelo gerador, tipo e cpts_preliminares
+# ---------------------------------------------------------------------------
+def _com_tipos_coerentes(m):
+    m["variaveis"][0]["tipo"] = "raiz"
+    m["variaveis"][1]["tipo"] = "intermediaria"
+    m["variaveis"][2]["tipo"] = "alvo"
+    m["projeto"]["cpts_preliminares"] = False
+
+
+def test_tipo_e_cpts_preliminares_coerentes_sao_aceitos(modelo):
+    _com_tipos_coerentes(modelo)
+    validar_modelo(modelo)
+
+
+def _raiz_com_pais(m):
+    m["variaveis"][1]["tipo"] = "raiz"
+
+
+def _intermediaria_sem_pais(m):
+    m["variaveis"][0]["tipo"] = "intermediaria"
+
+
+def _latente_observavel(m):
+    m["variaveis"][1]["tipo"] = "latente"
+
+
+def _tipo_desconhecido(m):
+    m["variaveis"][0]["tipo"] = "chefe"
+
+
+def _preliminar_nao_booleano(m):
+    m["projeto"]["cpts_preliminares"] = "sim"
+
+
+CASOS_TIPO_INVALIDO = [
+    pytest.param(_raiz_com_pais, "tipo 'raiz'", id="raiz_com_pais"),
+    pytest.param(_intermediaria_sem_pais, "tipo 'intermediaria'", id="intermediaria_sem_pais"),
+    pytest.param(_latente_observavel, "tipo 'latente'", id="latente_marcada_como_observavel"),
+    pytest.param(_tipo_desconhecido, "chefe", id="tipo_desconhecido"),
+    pytest.param(_preliminar_nao_booleano, "sim", id="cpts_preliminares_nao_booleano"),
+]
+
+
+@pytest.mark.parametrize("alterar, trecho", CASOS_TIPO_INVALIDO)
+def test_tipo_ou_flag_invalidos(modelo, alterar, trecho):
+    alterar(modelo)
+    with pytest.raises(ModeloInvalidoError, match=trecho):
+        validar_modelo(modelo)
+
+
+def test_latente_nao_observavel_e_aceita(modelo):
+    modelo["variaveis"][1]["tipo"] = "latente"
+    modelo["variaveis"][1]["observavel"] = False
+    validar_modelo(modelo)

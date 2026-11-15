@@ -4,9 +4,7 @@ Trabalho prático de Aprendizagem de Máquina e Modelagem de Conhecimento Incert
 
 ## Integrantes
 
-Eduardo Angelo Rozada Minholi
-Nuno Miguel Mendonça Abilio
-Janaina Maria Cera da Silva
+Preencher com nome completo e RA de cada integrante antes da entrega.
 
 ## O que o projeto faz
 
@@ -27,6 +25,8 @@ source .venv/bin/activate          # Linux, macOS e Git Bash no Windows (use .ve
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+O `requirements.txt` termina com `-e .`, que instala o próprio projeto em modo editável. Por isso `python -m bn_evasao.cli` funciona a partir de qualquer pasta, sem configurar o `PYTHONPATH`. Ative sempre o ambiente virtual antes de usar os comandos. Se o PowerShell bloquear o script de ativação, rode `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` na mesma janela e ative de novo.
 
 O Graphviz é opcional. Quando o programa `dot` está instalado, o desenho da rede usa o Graphviz. Sem ele, o desenho é feito automaticamente com matplotlib. Para instalar, use `sudo apt install graphviz` no Ubuntu e WSL, `brew install graphviz` no macOS, ou o instalador oficial no Windows, marcando a opção de adicionar ao PATH.
 
@@ -94,6 +94,7 @@ redes-bayesianas-evasao/
 ├── README.md
 ├── requirements.txt
 ├── pytest.ini
+├── pyproject.toml               torna o pacote bn_evasao instalável
 ├── modelo.json                  fonte única da verdade
 ├── .github/workflows/tests.yml  integração contínua
 ├── data/

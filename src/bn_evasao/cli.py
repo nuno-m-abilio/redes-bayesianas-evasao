@@ -85,6 +85,8 @@ def _cmd_validar(args: argparse.Namespace) -> int:
                       f"{len(modelo['cenarios'])}")
     if pais_max > MAX_PAIS:
         avisos.append(f"há variável com {pais_max} pais, e o grupo decidiu no máximo {MAX_PAIS}")
+    if modelo["projeto"].get("cpts_preliminares"):
+        avisos.append("as CPTs estão marcadas como preliminares (cpts_preliminares no projeto)")
     for aviso in avisos:
         print(f"Aviso: {aviso}.")
     return SAIDA_OK

@@ -30,7 +30,7 @@ RAIZ_PADRAO = Path(__file__).resolve().parents[1]
 PADRAO_INTEGRANTE = re.compile(r"^[A-Za-z]+$")
 
 PASTAS_EXCLUIDAS = {".git", ".venv", "venv", "env", "__pycache__", ".pytest_cache",
-                    ".ipynb_checkpoints", ".mypy_cache", "htmlcov", "dist", "node_modules"}
+                    ".ipynb_checkpoints", ".mypy_cache", "htmlcov", "dist", "build", "node_modules"}
 PREFIXOS_EXCLUIDOS = ("data/raw/",)
 NOMES_EXCLUIDOS = {".DS_Store", ".coverage", "Thumbs.db"}
 SUFIXOS_EXCLUIDOS = {".pyc", ".pyo", ".zip"}
@@ -39,6 +39,7 @@ ARQUIVOS_OBRIGATORIOS = [
     "README.md",
     "requirements.txt",
     "pytest.ini",
+    "pyproject.toml",
     "modelo.json",
     "docs/modelo_json_guia.md",
     "docs/uso_de_ia.md",
@@ -70,7 +71,7 @@ def listar_arquivos(raiz: Path) -> list[str]:
         rel_pasta = Path(pasta).relative_to(raiz).as_posix()
         subpastas[:] = sorted(
             s for s in subpastas
-            if s not in PASTAS_EXCLUIDAS
+            if s not in PASTAS_EXCLUIDAS and not s.endswith(".egg-info")
             and not f"{'' if rel_pasta == '.' else rel_pasta + '/'}{s}/".startswith(PREFIXOS_EXCLUIDOS))
         for nome in sorted(nomes):
             if nome in NOMES_EXCLUIDOS or Path(nome).suffix in SUFIXOS_EXCLUIDOS:

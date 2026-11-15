@@ -78,6 +78,7 @@ def validar_modelo(modelo: dict[str, Any]) -> None:
     validar_contra_schema(modelo)
     estados_por_var = _validar_variaveis(modelo)
     pais_por_var = _validar_estrutura(modelo, estados_por_var)
+    _validar_tipos(modelo, pais_por_var)
     _validar_aciclico(pais_por_var)
     _validar_ids_cenarios(modelo)
     _validar_cpts(modelo, estados_por_var, pais_por_var)
@@ -159,6 +160,22 @@ def _validar_estrutura(modelo: dict[str, Any],
                 f"estrutura.pais['{var}'] = {lista} não bate com os arcos, que "
                 f"indicam {derivado[var]}.")
     return {var: list(declarado[var]) for var in estados_por_var}
+
+
+def _validar_tipos(modelo: dict[str, Any], pais_por_var: dict[str, list[str]]) -> None:
+    """O campo opcional "tipo" não pode contradizer os arcos nem o campo observavel."""
+    for variavel in modelo["variaveis"]:
+        tipo = variavel.get("tipo")
+        var = variavel["id"]
+        if tipo == "raiz" and pais_por_var[var]:
+            raise ModeloInvalidoError(
+                f"A variável '{var}' tem tipo 'raiz', mas possui pais {pais_por_var[var]}.")
+        if tipo == "intermediaria" and not pais_por_var[var]:
+            raise ModeloInvalidoError(
+                f"A variável '{var}' tem tipo 'intermediaria', mas não possui pais.")
+        if tipo == "latente" and variavel.get("observavel", True):
+            raise ModeloInvalidoError(
+                f"A variável '{var}' tem tipo 'latente', mas está marcada como observável.")
 
 
 def _validar_aciclico(pais_por_var: dict[str, list[str]]) -> None:
