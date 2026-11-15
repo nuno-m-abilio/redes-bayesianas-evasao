@@ -66,7 +66,7 @@ AREA_CURSO = {
 
 # Códigos de qualificação dos pais -> nível 0 (Baixa), 1 (Media), 2 (Alta).
 _ALTA = {2, 3, 4, 5, 6, 39, 40, 41, 42, 43, 44}
-_MEDIA = {1, 9, 10, 11, 12, 14, 18, 19, 22, 26, 27, 29, 30}
+_MEDIA = {1, 9, 10, 11, 12, 13, 14, 18, 19, 20, 22, 25, 26, 27, 29, 30, 31, 33}
 _BAIXA = {34, 35, 36, 37, 38}  # inclui "desconhecido" (34) como nível mais baixo
 NIVEL_QUALIFICACAO = {**{c: 2 for c in _ALTA},
                       **{c: 1 for c in _MEDIA},
