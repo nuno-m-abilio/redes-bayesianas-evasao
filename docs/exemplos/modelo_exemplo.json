@@ -1,0 +1,107 @@
+{
+  "projeto": {
+    "tema": "Exemplo mínimo para ilustrar o formato do modelo.json",
+    "pergunta_principal": "Dado que a grama está molhada, qual a probabilidade de ter chovido?",
+    "nota_causalidade": "Arcos representam hipóteses de dependência, não causalidade comprovada.",
+    "dataset": {
+      "nome": "Nenhum (exemplo didático)",
+      "fonte": "Valores inventados apenas para ilustrar o formato.",
+      "uso": "Serve de fixture para os testes e de referência para ler o modelo.json."
+    }
+  },
+  "variaveis": [
+    {
+      "id": "Chuva",
+      "nome": "Chuva",
+      "descricao": "Se choveu durante a noite",
+      "observavel": true,
+      "estados": [
+        {"id": "Sim", "interpretacao": "choveu"},
+        {"id": "Nao", "interpretacao": "não choveu"}
+      ]
+    },
+    {
+      "id": "Grama_Molhada",
+      "nome": "Grama molhada",
+      "descricao": "Se a grama do jardim amanheceu molhada",
+      "observavel": true,
+      "estados": [
+        {"id": "Sim", "interpretacao": "grama molhada"},
+        {"id": "Nao", "interpretacao": "grama seca"}
+      ]
+    },
+    {
+      "id": "Guarda_Chuva",
+      "nome": "Guarda chuva",
+      "descricao": "Se o vizinho saiu de casa com guarda chuva",
+      "observavel": true,
+      "estados": [
+        {"id": "Sim", "interpretacao": "saiu com guarda chuva"},
+        {"id": "Nao", "interpretacao": "saiu sem guarda chuva"}
+      ]
+    }
+  ],
+  "estrutura": {
+    "arcos": [
+      {"de": "Chuva", "para": "Grama_Molhada",
+       "justificativa": "A chuva molha a grama."},
+      {"de": "Chuva", "para": "Guarda_Chuva",
+       "justificativa": "Quando chove, as pessoas saem com guarda chuva."}
+    ],
+    "pais": {
+      "Chuva": [],
+      "Grama_Molhada": ["Chuva"],
+      "Guarda_Chuva": ["Chuva"]
+    }
+  },
+  "probabilidades": [
+    {
+      "variavel": "Chuva",
+      "pais": [],
+      "estados": ["Sim", "Nao"],
+      "regra_geracao": "Valores escritos à mão para o exemplo.",
+      "linhas": [
+        {"configuracao_pais": {}, "probabilidades": {"Sim": 0.3, "Nao": 0.7}}
+      ]
+    },
+    {
+      "variavel": "Grama_Molhada",
+      "pais": ["Chuva"],
+      "estados": ["Sim", "Nao"],
+      "regra_geracao": "Valores escritos à mão para o exemplo.",
+      "linhas": [
+        {"configuracao_pais": {"Chuva": "Sim"}, "probabilidades": {"Sim": 0.9, "Nao": 0.1}},
+        {"configuracao_pais": {"Chuva": "Nao"}, "probabilidades": {"Sim": 0.2, "Nao": 0.8}}
+      ]
+    },
+    {
+      "variavel": "Guarda_Chuva",
+      "pais": ["Chuva"],
+      "estados": ["Sim", "Nao"],
+      "regra_geracao": "Valores escritos à mão para o exemplo.",
+      "linhas": [
+        {"configuracao_pais": {"Chuva": "Sim"}, "probabilidades": {"Sim": 0.8, "Nao": 0.2}},
+        {"configuracao_pais": {"Chuva": "Nao"}, "probabilidades": {"Sim": 0.1, "Nao": 0.9}}
+      ]
+    }
+  ],
+  "cenarios": [
+    {
+      "id": "E1_diagnostico",
+      "tipo_analise": "diagnostica",
+      "pergunta": "Observar a grama molhada torna a chuva mais provável do que a probabilidade inicial?",
+      "evidencias": {"Grama_Molhada": "Sim"},
+      "consultas": ["Chuva"],
+      "expectativas": [
+        {"tipo": "maior_que_prior", "consulta": "Chuva", "estado": "Sim"}
+      ],
+      "relevancia": "Mostra como uma evidência indireta altera a crença sobre a causa.",
+      "limitacoes": "Rede didática com valores inventados."
+    }
+  ],
+  "metadados_execucao": {
+    "python": "3.11",
+    "bibliotecas": {"pgmpy": "x.y.z"},
+    "observacao": "Exemplo didático, as versões reais ficam no modelo.json do projeto."
+  }
+}
