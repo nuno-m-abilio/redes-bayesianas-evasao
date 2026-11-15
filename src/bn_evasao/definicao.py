@@ -26,11 +26,12 @@ VARIAVEIS: dict[str, dict] = {
         "tipo": RAIZ_TIPO,
         "observavel": True,
         "estados": {
-            "Saude": "Enfermagem, enfermagem veterinária e higiene oral",
-            "Social_Educacao": "Serviço social e educação básica",
-            "Gestao_Turismo": "Gestão, turismo e marketing/publicidade",
-            "Comunicacao_Design": "Design de comunicação, animação/multimídia e jornalismo",
-            "Tecnologia_Agro": "Agronomia, informática, tecnologias de biocombustíveis e equinocultura",
+            "Saude": "Enfermagem e higiene oral",
+            "Ciencias_Sociais": "Serviço social e educação básica",
+            "Gestao_Turismo": "Gestão e turismo",
+            "Comunicacao_Design": "Design de comunicação, animação/multimídia, publicidade/gestão de propaganda e jornalismo",
+            "Ciencias_Agricolas": "Agronomia, enfermagem veterinária e equinocultura",
+            "Engenharias_Tecnologia": "Tecnologias de produção de biocombustíveis e engenharia informática",
         },
     },
     "Faixa_Etaria": {

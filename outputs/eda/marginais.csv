@@ -1,9 +1,10 @@
 variavel,estado,contagem,proporcao
-Area_Curso,Saude,1189,0.2688
-Area_Curso,Social_Educacao,762,0.1722
-Area_Curso,Gestao_Turismo,1168,0.264
-Area_Curso,Comunicacao_Design,772,0.1745
-Area_Curso,Tecnologia_Agro,533,0.1205
+Area_Curso,Saude,852,0.1926
+Area_Curso,Ciencias_Sociais,762,0.1722
+Area_Curso,Gestao_Turismo,900,0.2034
+Area_Curso,Comunicacao_Design,1040,0.2351
+Area_Curso,Ciencias_Agricolas,688,0.1555
+Area_Curso,Engenharias_Tecnologia,182,0.0411
 Faixa_Etaria,Jovem,2551,0.5766
 Faixa_Etaria,Adulto,828,0.1872
 Faixa_Etaria,Maduro,1045,0.2362
