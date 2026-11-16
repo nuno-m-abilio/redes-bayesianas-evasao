@@ -1,0 +1,33 @@
+digraph RedeBayesianaEvasao {
+rankdir=TB;
+Area_Curso [label="Area\nCurso", shape=box, style="rounded,filled", fillcolor="#DCEBFA", color="#2B6CB0"];
+Faixa_Etaria [label="Faixa\nEtaria", shape=box, style="rounded,filled", fillcolor="#DCEBFA", color="#2B6CB0"];
+Escolaridade_Pais [label="Escolaridade\nPais", shape=box, style="rounded,filled", fillcolor="#DCEBFA", color="#2B6CB0"];
+Bolsista [label=Bolsista, shape=box, style="rounded,filled", fillcolor="#DCEBFA", color="#2B6CB0"];
+Deslocado [label=Deslocado, shape=box, style="rounded,filled", fillcolor="#DCEBFA", color="#2B6CB0"];
+Nota_Admissao [label="Nota\nAdmissao", shape=box, style="rounded,filled", fillcolor="#DCEBFA", color="#2B6CB0"];
+Desemprego [label=Desemprego, shape=box, style="rounded,filled", fillcolor="#DCEBFA", color="#2B6CB0"];
+Turno [label=Turno, shape=box, style="rounded,filled", fillcolor="#E6F4EA", color="#2F855A"];
+Pressao_Financeira [label="Pressao\nFinanceira", shape=box, style="rounded,filled,dashed", fillcolor="#FEF3C7", color="#B7791F"];
+Devedor [label=Devedor, shape=box, style="rounded,filled", fillcolor="#E6F4EA", color="#2F855A"];
+Mensalidade_Em_Dia [label="Mensalidade\nEm\nDia", shape=box, style="rounded,filled", fillcolor="#E6F4EA", color="#2F855A"];
+Desempenho_Sem1 [label="Desempenho\nSem1", shape=box, style="rounded,filled", fillcolor="#E6F4EA", color="#2F855A"];
+Desempenho_Sem2 [label="Desempenho\nSem2", shape=box, style="rounded,filled", fillcolor="#E6F4EA", color="#2F855A"];
+Desfecho [label=Desfecho, shape=box, style="rounded,filled", fillcolor="#FEE2E2", color="#C53030"];
+Area_Curso -> Turno;
+Area_Curso -> Desempenho_Sem1;
+Faixa_Etaria -> Turno;
+Faixa_Etaria -> Desempenho_Sem1;
+Escolaridade_Pais -> Pressao_Financeira;
+Bolsista -> Pressao_Financeira;
+Deslocado -> Pressao_Financeira;
+Nota_Admissao -> Desempenho_Sem1;
+Desemprego -> Desfecho;
+Turno -> Desempenho_Sem2;
+Pressao_Financeira -> Devedor;
+Pressao_Financeira -> Mensalidade_Em_Dia;
+Pressao_Financeira -> Desempenho_Sem2;
+Pressao_Financeira -> Desfecho;
+Desempenho_Sem1 -> Desempenho_Sem2;
+Desempenho_Sem2 -> Desfecho;
+}

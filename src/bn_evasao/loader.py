@@ -18,6 +18,14 @@ TOLERANCIA_SOMA_CPT = 1e-5
 class ErroValidacaoModelo(ValueError):
     """Erro levantado quando o modelo.json viola regras estruturais ou probabilísticas."""
 
+def _rejeitar_chaves_duplicadas(pares: list[tuple[str, object]]) -> dict:
+    """object_pairs_hook: o enunciado exige JSON sem chaves duplicadas."""
+    resultado: dict = {}
+    for chave, valor in pares:
+        if chave in resultado:
+            raise ErroValidacaoModelo(f"Chave duplicada no JSON: '{chave}'.")
+        resultado[chave] = valor
+    return resultado
 
 def carregar_modelo(caminho: str | Path = CAMINHO_MODELO_PADRAO) -> dict:
     """Lê um arquivo modelo.json do disco, valida e retorna o dicionário."""
@@ -27,7 +35,7 @@ def carregar_modelo(caminho: str | Path = CAMINHO_MODELO_PADRAO) -> dict:
 
     try:
         texto = path.read_text(encoding="utf-8")
-        dados = json.loads(texto)
+        dados = json.loads(texto, object_pairs_hook=_rejeitar_chaves_duplicadas)
     except json.JSONDecodeError as exc:
         raise ErroValidacaoModelo(f"JSON malformado em {path}: {exc}") from exc
 

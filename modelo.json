@@ -572,8 +572,8 @@
             "Faixa_Etaria": "Jovem"
           },
           "probabilidades": {
-            "Diurno": 0.95,
-            "Noturno": 0.05
+            "Diurno": 0.98,
+            "Noturno": 0.02
           }
         },
         {
@@ -582,8 +582,8 @@
             "Faixa_Etaria": "Adulto"
           },
           "probabilidades": {
-            "Diurno": 0.775,
-            "Noturno": 0.225
+            "Diurno": 0.91,
+            "Noturno": 0.09
           }
         },
         {
@@ -592,8 +592,8 @@
             "Faixa_Etaria": "Maduro"
           },
           "probabilidades": {
-            "Diurno": 0.6,
-            "Noturno": 0.4
+            "Diurno": 0.84,
+            "Noturno": 0.16
           }
         },
         {
@@ -602,8 +602,8 @@
             "Faixa_Etaria": "Jovem"
           },
           "probabilidades": {
-            "Diurno": 0.6875,
-            "Noturno": 0.3125
+            "Diurno": 0.875,
+            "Noturno": 0.125
           }
         },
         {
@@ -612,8 +612,8 @@
             "Faixa_Etaria": "Adulto"
           },
           "probabilidades": {
-            "Diurno": 0.5125,
-            "Noturno": 0.4875
+            "Diurno": 0.805,
+            "Noturno": 0.195
           }
         },
         {
@@ -622,8 +622,8 @@
             "Faixa_Etaria": "Maduro"
           },
           "probabilidades": {
-            "Diurno": 0.3375,
-            "Noturno": 0.6625
+            "Diurno": 0.735,
+            "Noturno": 0.265
           }
         },
         {
@@ -632,8 +632,8 @@
             "Faixa_Etaria": "Jovem"
           },
           "probabilidades": {
-            "Diurno": 0.6,
-            "Noturno": 0.4
+            "Diurno": 0.84,
+            "Noturno": 0.16
           }
         },
         {
@@ -642,8 +642,8 @@
             "Faixa_Etaria": "Adulto"
           },
           "probabilidades": {
-            "Diurno": 0.425,
-            "Noturno": 0.575
+            "Diurno": 0.77,
+            "Noturno": 0.23
           }
         },
         {
@@ -652,8 +652,8 @@
             "Faixa_Etaria": "Maduro"
           },
           "probabilidades": {
-            "Diurno": 0.25,
-            "Noturno": 0.75
+            "Diurno": 0.7,
+            "Noturno": 0.3
           }
         },
         {
@@ -662,8 +662,8 @@
             "Faixa_Etaria": "Jovem"
           },
           "probabilidades": {
-            "Diurno": 0.775,
-            "Noturno": 0.225
+            "Diurno": 0.91,
+            "Noturno": 0.09
           }
         },
         {
@@ -672,8 +672,8 @@
             "Faixa_Etaria": "Adulto"
           },
           "probabilidades": {
-            "Diurno": 0.6,
-            "Noturno": 0.4
+            "Diurno": 0.84,
+            "Noturno": 0.16
           }
         },
         {
@@ -682,8 +682,8 @@
             "Faixa_Etaria": "Maduro"
           },
           "probabilidades": {
-            "Diurno": 0.425,
-            "Noturno": 0.575
+            "Diurno": 0.77,
+            "Noturno": 0.23
           }
         },
         {
@@ -692,8 +692,8 @@
             "Faixa_Etaria": "Jovem"
           },
           "probabilidades": {
-            "Diurno": 0.95,
-            "Noturno": 0.05
+            "Diurno": 0.98,
+            "Noturno": 0.02
           }
         },
         {
@@ -702,8 +702,8 @@
             "Faixa_Etaria": "Adulto"
           },
           "probabilidades": {
-            "Diurno": 0.775,
-            "Noturno": 0.225
+            "Diurno": 0.91,
+            "Noturno": 0.09
           }
         },
         {
@@ -712,8 +712,8 @@
             "Faixa_Etaria": "Maduro"
           },
           "probabilidades": {
-            "Diurno": 0.6,
-            "Noturno": 0.4
+            "Diurno": 0.84,
+            "Noturno": 0.16
           }
         },
         {
@@ -722,8 +722,8 @@
             "Faixa_Etaria": "Jovem"
           },
           "probabilidades": {
-            "Diurno": 0.8625,
-            "Noturno": 0.1375
+            "Diurno": 0.945,
+            "Noturno": 0.055
           }
         },
         {
@@ -732,8 +732,8 @@
             "Faixa_Etaria": "Adulto"
           },
           "probabilidades": {
-            "Diurno": 0.6875,
-            "Noturno": 0.3125
+            "Diurno": 0.875,
+            "Noturno": 0.125
           }
         },
         {
@@ -742,12 +742,12 @@
             "Faixa_Etaria": "Maduro"
           },
           "probabilidades": {
-            "Diurno": 0.5125,
-            "Noturno": 0.4875
+            "Diurno": 0.805,
+            "Noturno": 0.195
           }
         }
       ],
-      "regra_geracao": "Pontuação de adesão ao noturno: idade mais avançada (+3.0) e áreas com oferta noturna (+2.0)."
+      "regra_geracao": "Pontuação de adesão ao noturno: idade mais avançada (até +2.5) e áreas com oferta noturna (até +2.0)."
     },
     {
       "variavel": "Pressao_Financeira",
@@ -768,8 +768,8 @@
             "Deslocado": "Sim"
           },
           "probabilidades": {
-            "Baixa": 0.42,
-            "Alta": 0.58
+            "Baixa": 0.56,
+            "Alta": 0.44
           }
         },
         {
@@ -779,8 +779,8 @@
             "Deslocado": "Nao"
           },
           "probabilidades": {
-            "Baixa": 0.66,
-            "Alta": 0.34
+            "Baixa": 0.755,
+            "Alta": 0.245
           }
         },
         {
@@ -790,8 +790,8 @@
             "Deslocado": "Sim"
           },
           "probabilidades": {
-            "Baixa": 0.1,
-            "Alta": 0.9
+            "Baixa": 0.3,
+            "Alta": 0.7
           }
         },
         {
@@ -801,8 +801,8 @@
             "Deslocado": "Nao"
           },
           "probabilidades": {
-            "Baixa": 0.34,
-            "Alta": 0.66
+            "Baixa": 0.495,
+            "Alta": 0.505
           }
         },
         {
@@ -812,8 +812,8 @@
             "Deslocado": "Sim"
           },
           "probabilidades": {
-            "Baixa": 0.58,
-            "Alta": 0.42
+            "Baixa": 0.69,
+            "Alta": 0.31
           }
         },
         {
@@ -823,8 +823,8 @@
             "Deslocado": "Nao"
           },
           "probabilidades": {
-            "Baixa": 0.82,
-            "Alta": 0.18
+            "Baixa": 0.885,
+            "Alta": 0.115
           }
         },
         {
@@ -834,8 +834,8 @@
             "Deslocado": "Sim"
           },
           "probabilidades": {
-            "Baixa": 0.26,
-            "Alta": 0.74
+            "Baixa": 0.43,
+            "Alta": 0.57
           }
         },
         {
@@ -845,8 +845,8 @@
             "Deslocado": "Nao"
           },
           "probabilidades": {
-            "Baixa": 0.5,
-            "Alta": 0.5
+            "Baixa": 0.625,
+            "Alta": 0.375
           }
         },
         {
@@ -856,8 +856,8 @@
             "Deslocado": "Sim"
           },
           "probabilidades": {
-            "Baixa": 0.66,
-            "Alta": 0.34
+            "Baixa": 0.755,
+            "Alta": 0.245
           }
         },
         {
@@ -867,8 +867,8 @@
             "Deslocado": "Nao"
           },
           "probabilidades": {
-            "Baixa": 0.9,
-            "Alta": 0.1
+            "Baixa": 0.95,
+            "Alta": 0.05
           }
         },
         {
@@ -878,8 +878,8 @@
             "Deslocado": "Sim"
           },
           "probabilidades": {
-            "Baixa": 0.34,
-            "Alta": 0.66
+            "Baixa": 0.495,
+            "Alta": 0.505
           }
         },
         {
@@ -889,8 +889,8 @@
             "Deslocado": "Nao"
           },
           "probabilidades": {
-            "Baixa": 0.58,
-            "Alta": 0.42
+            "Baixa": 0.69,
+            "Alta": 0.31
           }
         }
       ],
@@ -1575,8 +1575,8 @@
             "Pressao_Financeira": "Baixa"
           },
           "probabilidades": {
-            "Sim": 0.05,
-            "Nao": 0.95
+            "Sim": 0.02,
+            "Nao": 0.98
           }
         },
         {
@@ -1584,12 +1584,12 @@
             "Pressao_Financeira": "Alta"
           },
           "probabilidades": {
-            "Sim": 0.45,
-            "Nao": 0.55
+            "Sim": 0.18,
+            "Nao": 0.82
           }
         }
       ],
-      "regra_geracao": "Sintoma de Pressao_Financeira: pressão alta eleva probabilidade de dívida de 5% para 45%."
+      "regra_geracao": "Sintoma de Pressao_Financeira: pressão alta eleva probabilidade de dívida de 2% para 18%."
     },
     {
       "variavel": "Mensalidade_Em_Dia",
@@ -1606,8 +1606,8 @@
             "Pressao_Financeira": "Baixa"
           },
           "probabilidades": {
-            "Sim": 0.95,
-            "Nao": 0.05
+            "Sim": 0.98,
+            "Nao": 0.02
           }
         },
         {
@@ -1615,12 +1615,12 @@
             "Pressao_Financeira": "Alta"
           },
           "probabilidades": {
-            "Sim": 0.55,
-            "Nao": 0.45
+            "Sim": 0.82,
+            "Nao": 0.18
           }
         }
       ],
-      "regra_geracao": "Sintoma de Pressao_Financeira: pressão alta eleva atraso de mensalidade de 5% para 45%."
+      "regra_geracao": "Sintoma de Pressao_Financeira: pressão alta eleva atraso de mensalidade de 2% para 18%."
     },
     {
       "variavel": "Desempenho_Sem2",
@@ -2175,10 +2175,10 @@
     "python_minimo": "3.11",
     "bibliotecas": {
       "pgmpy": "1.1.2",
-      "networkx": "3.6.1",
-      "pandas": "3.0.4",
-      "numpy": "2.5.0",
-      "matplotlib": "3.11.0",
+      "networkx": "3.7",
+      "pandas": "3.1.1",
+      "numpy": "2.5.4",
+      "matplotlib": "3.11.2",
       "pydot": "4.0.1",
       "pytest": "9.2.0",
       "jsonschema": "4.26.0"

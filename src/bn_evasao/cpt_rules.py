@@ -163,9 +163,9 @@ def _cpt_turno() -> dict:
     return _calcular_por_pontos(
         variavel="Turno",
         pontos_por_pai=pontos,
-        melhor_caso={"Diurno": 0.95, "Noturno": 0.05},  # Jovem em Saúde/Agrárias
-        pior_caso={"Diurno": 0.25, "Noturno": 0.75},    # Maduro em Gestão/Turismo
-        regra_desc="Pontuação de adesão ao noturno: idade mais avançada (+3.0) e áreas com oferta noturna (+2.0).",
+        melhor_caso={"Diurno": 0.98, "Noturno": 0.02},  # Jovem em Saúde/Agrárias
+        pior_caso={"Diurno": 0.70, "Noturno": 0.30},    # Maduro em Gestão/Turismo
+        regra_desc="Pontuação de adesão ao noturno: idade mais avançada (até +2.5) e áreas com oferta noturna (até +2.0).",
     )
 
 
@@ -190,8 +190,8 @@ def _cpt_pressao_financeira() -> dict:
     return _calcular_por_pontos(
         variavel="Pressao_Financeira",
         pontos_por_pai=pontos,
-        melhor_caso={"Baixa": 0.90, "Alta": 0.10},
-        pior_caso={"Baixa": 0.10, "Alta": 0.90},
+        melhor_caso={"Baixa": 0.95, "Alta": 0.05},
+        pior_caso={"Baixa": 0.30, "Alta": 0.70},
         regra_desc="Pontuação de risco: ausência de bolsa (+2.0), deslocamento (+1.5) e baixa escolaridade dos pais (+1.5).",
     )
 
@@ -205,9 +205,9 @@ def _cpt_devedor() -> dict:
     return _calcular_por_pontos(
         variavel="Devedor",
         pontos_por_pai=pontos,
-        melhor_caso={"Sim": 0.05, "Nao": 0.95},
-        pior_caso={"Sim": 0.45, "Nao": 0.55},
-        regra_desc="Sintoma de Pressao_Financeira: pressão alta eleva probabilidade de dívida de 5% para 45%.",
+        melhor_caso={"Sim": 0.02, "Nao": 0.98},
+        pior_caso={"Sim": 0.18, "Nao": 0.82},
+        regra_desc="Sintoma de Pressao_Financeira: pressão alta eleva probabilidade de dívida de 2% para 18%.",
     )
 
 
@@ -220,9 +220,9 @@ def _cpt_mensalidade_em_dia() -> dict:
     return _calcular_por_pontos(
         variavel="Mensalidade_Em_Dia",
         pontos_por_pai=pontos,
-        melhor_caso={"Sim": 0.95, "Nao": 0.05},
-        pior_caso={"Sim": 0.55, "Nao": 0.45},
-        regra_desc="Sintoma de Pressao_Financeira: pressão alta eleva atraso de mensalidade de 5% para 45%.",
+        melhor_caso={"Sim": 0.98, "Nao": 0.02},
+        pior_caso={"Sim": 0.82, "Nao": 0.18},
+        regra_desc="Sintoma de Pressao_Financeira: pressão alta eleva atraso de mensalidade de 2% para 18%.",
     )
 
 
